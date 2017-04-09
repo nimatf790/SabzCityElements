@@ -1,0 +1,152 @@
+<!--
+Copyright 2016 SabzCity
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-ajax/iron-ajax.html">
+<link rel="import" href="../../paper-toast/paper-toast.html">
+<link rel="import" href="../a-public-library/a-public-library.html">
+
+<dom-module id="sabzcity-app-engine">
+	<template>
+		<iron-ajax auto id="subdomain_ajax" url="//apis.sabz.city/kvs/v1/domains/sabzcity/directories/html5-app/keys/master/" handle-as="json"
+		    on-response="_handleResponse"></iron-ajax>
+		<template is="dom-if" if="{{needUserDistinction}}">
+			<iron-ajax auto id="userdistinction_ajax" url="//apis.sabz.city/usersinfo/v1/123456789123456/distinctions/front-end/" handle-as="json"
+			    on-response="_handleResponse">
+			</iron-ajax>
+		</template>
+	</template>
+	<script>
+		Polymer({
+			is: "sabzcity-app-engine",
+			properties: {
+				needUserDistinction: {
+					type: Boolean,
+					value: false
+				}
+			},
+			ready: function () {
+				//just for test
+				if (publicLibrary.cookieManager.get("sabzcityCookie") == false) {
+					var obj = {
+						AU: {
+							"uuid": "guest"
+						}
+					};
+					publicLibrary.cookieManager.set("sabzcityCookie", JSON.stringify(obj), 10);
+				}
+
+				//get active user uuid and set distinction
+				this.userDistinction();
+			},
+			//response ajax
+			_handleResponse: function (e, req) {
+				var local = this;
+				if (req.xhr.status == 200 && req.xhr.readyState == 4) {
+					var res = e.detail.response;
+					//for routing
+					if (e.target.id == "subdomain_ajax") {
+						local.subDomain(res);
+					}
+					//get userdistinction from api
+					else if (e.target.id == "userdistinction_ajax") {
+						publicLibrary.localStorageUsers.make(publicLibrary.model["uuid"], res);
+						//go for set lang
+						local.language();
+					}
+				}
+			},
+			//get active user uuid and set distinction
+			userDistinction: function () {
+				var sabzcitycookie = JSON.parse(publicLibrary.cookieManager.get("sabzcityCookie"))
+				var activeuser = sabzcitycookie["AU"]["uuid"];
+				publicLibrary.model["uuid"] = activeuser;
+				if (publicLibrary.localStorageUsers.get(publicLibrary.model["uuid"]) == false) {
+					this.needUserDistinction = true;
+				} else {
+					//go for set lang
+					this.language();
+				}
+			},
+			//select domain from url
+			subDomain: function (data) {
+				var link_elem = publicLibrary.makeElement("link", {
+					"rel": "import",
+					"href": data["Element"]
+				});
+				document.head.appendChild(link_elem);
+				var app_element = publicLibrary.makeElement(data["Attribute"]);
+				Polymer.dom(this.root).appendChild(app_element);
+			},
+			//select language
+			language: function () {
+				var langs = ["per", "en", "de"]; //supported languages
+				var fullpath = window.location.href.replace(window.location.origin, "");
+				var parts = fullpath.split('/');
+				var local = this;
+
+				//check lang in url
+				if (parts[1].length == 0) {
+					chooseLang(false)
+				} else if (parts[1].length != 0) {
+					if (langs.indexOf(parts[1]) == -1) {
+						chooseLang(false)
+					} else {
+						chooseLang(true)
+					}
+				}
+
+				//choosing lang
+				function chooseLang(sit) {
+					//if language find in url
+					if (sit == true) {
+						if (checkForAddingSlash()) {
+							var newUrl = new URL(fullpath + "/", window.location.origin);
+							history.pushState(window.history.state, "language", newUrl);
+						}
+						publicLibrary.localStorageUsers.set(publicLibrary.model["uuid"], "Language", parts[1]);
+					}
+					//if language not find in url
+					else {
+						//select right lang and save it
+						var chLang = "per";
+						publicLibrary.localStorageUsers.set(publicLibrary.model["uuid"], "Language", chLang);
+						if (parts[1].length != 0) {
+							chLang = chLang + fullpath;
+						}
+						if (checkForAddingSlash()) {
+							chLang = chLang + "/"
+						}
+						var newUrl = new URL(chLang, window.location.origin);
+						history.pushState(window.history.state, "language", newUrl);
+						//show notification
+						var notification_element = publicLibrary.makeElement("paper-toast", {
+							"text": "Hello world!",
+							"opened": true
+						});
+						Polymer.dom(local.root).appendChild(notification_element);
+					}
+				}
+
+				//check url for adding slash
+				function checkForAddingSlash() {
+					if (fullpath.slice(-1) == "/" && parts[1].length != 0)
+						return false;
+					else if (parts[parts.length - 1].includes("?") || parts[parts.length - 1].includes("."))
+						return false;
+					else
+						return true;
+				}
+			}
+		});
+	</script>
+</dom-module>

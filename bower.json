@@ -1,0 +1,18 @@
+{
+  "name": "SabzCityElements",
+  "version": "0.1",
+  "authors": [
+    "SabzCity co."
+  ],
+  "description": "Common Custom Elements use in SabzCity Platforms",
+  "main": [],
+  "license": "https://github.com/SabzCity/SabzCityElements/LICENSE",
+  "homepage": "https://github.com/SabzCity/SabzCityElements",
+  "private": true,
+  "ignore": [],
+  "devDependencies": {
+  },
+  "dependencies": {
+    "polymer": "polymer/polymer"
+  }
+}

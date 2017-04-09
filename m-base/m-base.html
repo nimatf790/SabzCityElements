@@ -1,0 +1,66 @@
+<!--
+Copyright 2016 SabzCity
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<!-- Set html tags -->
+
+<head>
+    <!-- Important Tags -->
+    <title></title>
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="description" content="" />
+    <meta name="robots" content="">
+
+    <!-- OpenGraph Tags -->
+    <meta property="og:site_name" content="" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+
+    <!-- Suggest user to open this page in native IOS App -->
+    <meta property="al:ios:app_name" content="" />
+    <meta property="al:ios:app_store_id" content="" />
+    <meta property="al:ios:url" content="" />
+
+    <!-- Suggest user to open this page in native Android App -->
+    <meta property="al:android:app_name" content="" />
+    <meta property="al:android:package" content="" />
+    <meta property="al:android:url" content="" />
+
+    <!-- Tags for approve procces options -->
+    <meta content="" name="google-site-verification">
+    <link rel="shortcut icon" href="****/favicon.ico" type="image/x-icon" />
+
+    <!-- Tags for multi language -->
+    <link rel="alternate" hreflang="x-default" href="https://www.instagram.com/" />
+    <link rel="alternate" hreflang="en" href="https://www.instagram.com/?hl=en" />
+    <link rel="alternate" hreflang="ru" href="https://www.instagram.com/?hl=ru" />
+    <!-- Set language to <html> tag -->
+    <html lang="fa" />
+    <meta http-equiv="Content-Language" content="fa" />
+
+    <!-- Get manifest data and set it -->
+    <link rel="manifest" href="//apis.sabz.city/kvs/v1/keys/sabz.city?key=master&dir=manifest">
+
+    <!-- Git needed tags -->
+    <meta name="go-import" content="github.com/wayn3h0/go-caching git https://github.com/wayn3h0/go-caching.git">
+</head>
+
+<script>
+    // Set Base Tag by currect Domain
+    link = document.createElement('link');
+    link.href = '//apis.sabz.city/kvs/v1/domains/' + document.location.host + '/directories/manifest/keys/master/';
+    link.rel = 'manifest';
+    document.getElementsByTagName('head')[0].appendChild(link);
+</script>
