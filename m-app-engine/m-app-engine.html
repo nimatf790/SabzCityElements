@@ -17,8 +17,6 @@ limitations under the License.
 
 <dom-module id="sabzcity-app-engine">
 	<template>
-		<iron-ajax auto id="subdomain_ajax" url="//apis.sabz.city/kvs/v1/domains/sabzcity/directories/html5-app/keys/master/" handle-as="json"
-		    on-response="_handleResponse"></iron-ajax>
 		<template is="dom-if" if="{{needUserDistinction}}">
 			<iron-ajax auto id="userdistinction_ajax" url="//apis.sabz.city/usersinfo/v1/123456789123456/distinctions/front-end/" handle-as="json"
 			    on-response="_handleResponse">
@@ -41,12 +39,14 @@ limitations under the License.
 						AU: {
 							"uuid": "guest"
 						}
-					};
-					publicLibrary.cookieManager.set("sabzcityCookie", JSON.stringify(obj), 10);
+					}
+					publicLibrary.cookieManager.set("sabzcityCookie", JSON.stringify(obj), 10)
 				}
 
 				//get active user uuid and set distinction
-				this.userDistinction();
+				this.userDistinction()
+				//Set App Element
+				this.subDomainApp()
 			},
 			//response ajax
 			_handleResponse: function (e, req) {
@@ -77,14 +77,15 @@ limitations under the License.
 					this.language();
 				}
 			},
-			//select domain from url
-			subDomain: function (data) {
+			//Append app elements by suggestion architecture.
+			subDomainApp: function () {
+				appName = "app-" + window.location.hostname.replace(/\./g,'-')
 				var link_elem = publicLibrary.makeElement("link", {
 					"rel": "import",
-					"href": data["Element"]
+					"href": "/components/" + appName + "/" + appName + ".html"
 				});
 				document.head.appendChild(link_elem);
-				var app_element = publicLibrary.makeElement(data["Attribute"]);
+				var app_element = publicLibrary.makeElement(appName);
 				Polymer.dom(this.root).appendChild(app_element);
 			},
 			//select language

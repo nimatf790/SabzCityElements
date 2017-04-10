@@ -1,17 +1,4 @@
-# HTML5 Elements
-you can add needed element to web application and use sabzcity platform as SaaS provider for your project.
-
-e.g. add your organization products view in your web site:
-```html
-<!-- Polyfill Web Components,... for older browsers -->
-<script src="./js-browser-compatibility/browser-compatibility.js"></script>
-
-<!-- Import element -->
-<link rel="import" href="./sabzcity-products/sabzcity-products.html">
-
-<!-- Use element -->
-<sabzcity-products orgID="Org-UUID"></sabzcity-products>
-```
+# SabzCityElements
 
 ### Naming of Elements
 ```
@@ -19,6 +6,7 @@ Atom elements           —->     a-{name_of_elements}
 Molecules elements      —->     m-{name_of_elements}
 SaaS elements           —->     sabzcity-{name_of_elements}
 App elements            —->     app-{name_of_domain||subdomain}
+JavaScripts elements    -->     js-{name_of_elements}
 ```
 Also can Nested same featured elements
 ```
