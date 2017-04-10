@@ -13,6 +13,19 @@
   "devDependencies": {
   },
   "dependencies": {
-    "polymer": "polymer/polymer"
+    "webcomponentsjs": "webcomponents/webcomponentsjs",
+    "polymer": "polymer/polymer",
+    "iron-ajax": "PolymerElements/iron-ajax",
+    "platinum-sw": "PolymerElements/platinum-sw",
+    "app-layout": "PolymerElements/app-layout",
+    "iron-grid": "PolymerElements/iron-grid",
+    "paper-icon-button": "PolymerElements/paper-icon-button",
+    "iron-icon": "PolymerElements/iron-icon",
+    "iron-icons": "PolymerElements/iron-icons",
+    "iron-iconset": "PolymerElements/iron-iconset",
+    "paper-listbox": "PolymerElements/paper-listbox",
+    "paper-item": "PolymerElements/paper-item",
+
+    "": "/swagger-api/swagger-ui"
   }
 }
