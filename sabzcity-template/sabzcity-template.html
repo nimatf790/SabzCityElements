@@ -21,24 +21,36 @@ load and change fonts package
 
 It can be nice game-fiction for developers and users to join platform.
 -->
-<link rel="import" href="../../iron-ajax/iron-ajax.html">
-
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../a-public-library/a-public-library.html">
 <link rel="import" href="./theme-default.html">
 
 <dom-module id="sabzcity-template">
     <template>
-        <iron-ajax auto id="template_ajax" url="//apis.sabz.city/kvs/v1/keys/sabz.city?key=master&dir=templates" handle-as="json" on-response="_handleResponse"></iron-ajax>
+        <iron-ajax auto id="template_ajax" url="//apis.sabz.city/usersinfo/v1/123456789123456/distinctions/front-end/" handle-as="json" on-response="_handleResponse"></iron-ajax>
     </template>
+
     <script>
         Polymer({
             is: 'sabzcity-template',
-            properties: {
-                // specific domain name
-                customTempelate: {
-                    type: String,
-                    observer: "templateChanged"
-                },
-            }
+            ready: function () {
+                if (1 = 2) {
+                    this.loadTheme(userDefaultTheme)
+                } else {
+                    this.loadTheme("default")
+                }
+            },
+            //Append app elements by suggestion architecture.
+			loadTheme: function (themeName) {
+				appName = "app-" + window.location.hostname.replace(/\./g,'-')
+				var link_elem = publicLibrary.makeElement("link", {
+					"rel": "import",
+					"href": "/components/" + appName + "/teheme/" + themeName + ".html"
+				});
+				document.head.appendChild(link_elem);
+				var app_element = publicLibrary.makeElement(appName);
+				Polymer.dom(this.root).appendChild(app_element);
+			},
         });
     </script>
 </dom-module>
