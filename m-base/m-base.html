@@ -58,9 +58,10 @@ limitations under the License.
 </head>
 
 <script>
+    appName = "app-" + window.location.hostname.replace(/\./g,'-')
     // Set Base Tag by currect Domain
-    link = document.createElement('link');
-    link.href = '//apis.sabz.city/kvs/v1/domains/' + document.location.host + '/directories/manifest/keys/master/';
-    link.rel = 'manifest';
-    document.getElementsByTagName('head')[0].appendChild(link);
+    manifest = document.createElement('link')
+    manifest.href = "/components/" + appName + "/manifest.json"
+    manifest.rel = 'manifest'
+    document.head.appendChild(manifest)
 </script>
