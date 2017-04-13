@@ -24,7 +24,7 @@ It can be nice game-fiction for developers and users to join platform.
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../a-public-library/a-public-library.html">
 
-<dom-module id="sabzcity-template">
+<dom-module id="m-template">
     <template>
         <iron-ajax auto id="template_ajax" url="//apis.sabz.city/usersinfo/v1/123456789123456/distinctions/front-end/" handle-as="json"
             on-response="_handleResponse"></iron-ajax>
@@ -32,7 +32,7 @@ It can be nice game-fiction for developers and users to join platform.
 
     <script>
         Polymer({
-            is: 'sabzcity-template',
+            is: 'm-template',
             ready: function () {
                 if (1 == 2) {
                     this.loadTheme("userDefaultTheme")
@@ -43,13 +43,11 @@ It can be nice game-fiction for developers and users to join platform.
             //Append app elements by suggestion architecture.
             loadTheme: function (themeName) {
                 appName = "app-" + window.location.hostname.replace(/\./g, '-')
-                var link_elem = publicLibrary.makeElement("link", {
+                var themeLink = publicLibrary.makeElement("link", {
                     "rel": "import",
                     "href": "/components/" + appName + "/theme/" + themeName + ".html"
-                });
-                document.head.appendChild(link_elem);
-                var app_element = publicLibrary.makeElement(appName);
-                Polymer.dom(this.root).appendChild(app_element);
+                })
+                document.head.appendChild(themeLink)
             }
         });
     </script>
