@@ -1,4 +1,3 @@
-https://github.com/material-components/material-components-web
 <!--
 Copyright 2016 SabzCity
 
@@ -13,6 +12,7 @@ limitations under the License.
 -->
 
 <!--
+https://github.com/material-components/material-components-web
 User can assign free or buy template
 
 set color palette to render elements with custom color
@@ -26,7 +26,8 @@ It can be nice game-fiction for developers and users to join platform.
 
 <dom-module id="sabzcity-template">
     <template>
-        <iron-ajax auto id="template_ajax" url="//apis.sabz.city/usersinfo/v1/123456789123456/distinctions/front-end/" handle-as="json" on-response="_handleResponse"></iron-ajax>
+        <iron-ajax auto id="template_ajax" url="//apis.sabz.city/usersinfo/v1/123456789123456/distinctions/front-end/" handle-as="json"
+            on-response="_handleResponse"></iron-ajax>
     </template>
 
     <script>
@@ -34,22 +35,22 @@ It can be nice game-fiction for developers and users to join platform.
             is: 'sabzcity-template',
             ready: function () {
                 if (1 == 2) {
-                    this.loadTheme(userDefaultTheme)
+                    this.loadTheme("userDefaultTheme")
                 } else {
                     this.loadTheme("default")
                 }
             },
             //Append app elements by suggestion architecture.
-			loadTheme: function (themeName) {
-				appName = "app-" + window.location.hostname.replace(/\./g,'-')
-				var link_elem = publicLibrary.makeElement("link", {
-					"rel": "import",
-					"href": "/components/" + appName + "/theme/" + themeName + ".html"
-				});
-				document.head.appendChild(link_elem);
-				var app_element = publicLibrary.makeElement(appName);
-				Polymer.dom(this.root).appendChild(app_element);
-			},
+            loadTheme: function (themeName) {
+                appName = "app-" + window.location.hostname.replace(/\./g, '-')
+                var link_elem = publicLibrary.makeElement("link", {
+                    "rel": "import",
+                    "href": "/components/" + appName + "/theme/" + themeName + ".html"
+                });
+                document.head.appendChild(link_elem);
+                var app_element = publicLibrary.makeElement(appName);
+                Polymer.dom(this.root).appendChild(app_element);
+            },
         });
     </script>
 </dom-module>
