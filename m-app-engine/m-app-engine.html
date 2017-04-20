@@ -50,18 +50,17 @@ limitations under the License.
 			},
 			//response ajax
 			_handleResponse: function (e, req) {
-				var local = this;
 				if (req.xhr.status == 200 && req.xhr.readyState == 4) {
 					var res = e.detail.response;
 					//for routing
 					if (e.target.id == "subdomain_ajax") {
-						local.subDomain(res);
+						this.subDomain(res);
 					}
 					//get userdistinction from api
 					else if (e.target.id == "userdistinction_ajax") {
 						publicLibrary.localStorageUsers.make(publicLibrary.model["uuid"], res);
 						//go for set lang
-						local.language();
+						this.language();
 					}
 				}
 			},
