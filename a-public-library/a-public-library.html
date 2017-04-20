@@ -15,6 +15,11 @@ limitations under the License.
         model: {
             "uuid": ""
         },
+        // SabzCityElements use Domain name as App Name with some changes
+        app: {
+            name: "app-" + window.location.hostname.replace(/\./g,'-'),
+            location:  "/components/" + name + "/"
+        },
         //manage UserLocalDistinction in localstorage
         localStorageUsers: {
             make: function (uuid, value) {

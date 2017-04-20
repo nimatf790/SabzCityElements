@@ -23,3 +23,10 @@ limitations under the License.
 
 // Set Base Tag by currect Domain
 document.write("<base href='//" + document.location.host + "' />");
+
+// Get manifest data and set it
+appName = "app-" + window.location.hostname.replace(/\./g,'-')
+manifest = document.createElement('link')
+manifest.href = "/components/" + appName + "/manifest.json"
+manifest.rel = 'manifest'
+document.head.appendChild(manifest)

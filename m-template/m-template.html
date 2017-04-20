@@ -42,10 +42,9 @@ It can be nice game-fiction for developers and users to join platform.
             },
             //Append app elements by suggestion architecture.
             loadTheme: function (themeName) {
-                appName = "app-" + window.location.hostname.replace(/\./g, '-')
                 var themeLink = publicLibrary.makeElement("link", {
                     "rel": "import",
-                    "href": "/components/" + appName + "/theme/" + themeName + ".html"
+                    "href": publicLibrary.app.location + "/theme/" + themeName + ".html"
                 })
                 document.head.appendChild(themeLink)
             }
