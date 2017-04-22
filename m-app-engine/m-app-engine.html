@@ -17,129 +17,93 @@ limitations under the License.
 
 <dom-module id="sabzcity-app-engine">
 	<template>
-		<template is="dom-if" if="{{needUserDistinction}}">
-			<iron-ajax auto id="userdistinction_ajax" url="https://apis.sabz.city/usersinfo/v1/123456789123456/distinctions/front-end/"
-			    handle-as="json" on-response="_handleResponse">
-			</iron-ajax>
-		</template>
+		<iron-ajax auto id="userDistinctionAjax" url="https://apis.sabz.city/usersinfo/v1/123456789123456/distinctions/front-end/"
+		    handle-as="json" on-response="_handleResponse">
+		</iron-ajax>
 	</template>
 	<script>
 		Polymer({
 			is: "sabzcity-app-engine",
-			properties: {
-				needUserDistinction: {
-					type: Boolean,
-					value: false
-				}
-			},
 			ready: function () {
 				//just for test
-				if (publicLibrary.cookieManager.get("sabzcityCookie") == false) {
-					var obj = {
-						AU: {
-							"uuid": "guest"
-						}
-					}
-					publicLibrary.cookieManager.set("sabzcityCookie", JSON.stringify(obj), 10)
+				if (publicLibrary.cookieManager.get("AU") == false) {
+					publicLibrary.cookieManager.set("AU", "Guest", 10)
 				}
-
 				//get active user uuid and set distinction
-				this.userDistinction()
+				this.userDistinction(this._handleResponse.downloadedDistictions)
+				//Push Language in Url if it isn't exist by user distinction
+				this.pushLanguage(activeUser.distinctions.Language)
 				//Set App Element
-				this.subDomainApp()
+				this.appendApp()
 				//Load default or user distinction theme
-				//Just test
-				userDefaultTheme = null
-				this.loadTheme(userDefaultTheme)
+				this.loadTheme(activeUser.distinctions.Template)
 			},
 			//response ajax
 			_handleResponse: function (e, req) {
-				if (req.xhr.status == 200 && req.xhr.readyState == 4) {
-					var res = e.detail.response;
-					//for routing
-					if (e.target.id == "subdomain_ajax") {
-						this.subDomain(res);
-					}
-					//get userdistinction from api
-					else if (e.target.id == "userdistinction_ajax") {
-						publicLibrary.localStorageUsers.make(activeUser.id, res);
-						//go for set lang
-						this.language();
-					}
+				if (e.target.id == "userDistinctionAjax" && req.xhr.status == 200 && req.xhr.readyState == 4) {
+					var downloadedDistictions = e.detail.response;
 				}
 			},
-			//get active user uuid and set distinction
-			userDistinction: function () {
-				var sabzcitycookie = JSON.parse(publicLibrary.cookieManager.get("sabzcityCookie"))
-				var activeuser = sabzcitycookie["AU"]["uuid"];
-				activeUser.id = activeuser;
-				if (publicLibrary.localStorageUsers.get(activeUser.id) == false) {
-					this.needUserDistinction = true;
+			//get active user uuid from cookie and set distinction
+			userDistinction: function (downloadedDistictions) {
+				//Set Active UserID globally in activeUser object
+				activeUser.ID = publicLibrary.cookieManager.get("AU")
+				//Get User Distinction from SabzCity Apis
+				//If request response is not 200OK read Distinction from LocalStorage and set it in activeUser Global object
+				if (downloadedDistictions == null && publicLibrary.userLocalDistinctions.getAll(activeUser.ID) == true) {
+					console.log("not download")
+					activeUser.distinctions = publicLibrary.userLocalDistinctions.getAll(activeUser.ID)
+				//If Request response 200OK set it in activeUser Global object and LocalStorage
+				} else if (!downloadedDistictions == null) {
+					activeUser.distinctions = downloadedDistictions
+					console.log(downloadedDistictions)
+					publicLibrary.userLocalDistinctions.updateAll(activeUser.ID, activeUser.distinctions)
+				//If everythings goes wrong just use Default value!
 				} else {
-					//go for set lang
-					this.language();
+					console.log("download goes wrong")
+					return
 				}
 			},
 			//Append app elements by suggestion architecture.
-			subDomainApp: function () {
+			appendApp: function () {
 				var appLink = publicLibrary.makeElement("link", {
 					"rel": "import",
 					"href": publicLibrary.app.location + publicLibrary.app.name + ".html"
-				});
-				document.head.appendChild(appLink);
-				var appElement = publicLibrary.makeElement(publicLibrary.app.name);
-				Polymer.dom(this.root).appendChild(appElement);
+				})
+				document.head.appendChild(appLink)
+				var appElement = publicLibrary.makeElement(publicLibrary.app.name)
+				Polymer.dom(this.root).appendChild(appElement)
 			},
-			//select language
-			language: function () {
-				var langs = ["per", "en", "de"]; //supported languages
-				var fullpath = window.location.href.replace(window.location.origin, "");
-				var parts = fullpath.split('/');
-				var local = this;
+			//Push Language in Url if it isn't exist by user distinction
+			pushLanguage: function (languageName) {
+				var langs = ["per", "en", "de"] //supported languages
+				var fullpath = window.location.href.replace(window.location.origin, "")
+				var parts = fullpath.split('/')
 
-				//check lang in url
-				if (parts[1].length == 0) {
-					chooseLang(false)
-				} else if (parts[1].length != 0) {
-					if (langs.indexOf(parts[1]) == -1) {
-						chooseLang(false)
-					} else {
-						chooseLang(true)
+				//if valid language not find in url
+				if (parts[1].length == 0 || langs.indexOf(parts[1]) == -1) {
+					var urlWithLang = languageName
+					if (parts[1].length != 0) {
+						urlWithLang = languageName + fullpath
+					}
+					if (checkForAddingSlash()) {
+						urlWithLang = urlWithLang + "/"
+					}
+					var newUrl = new URL(urlWithLang, window.location.origin)
+					history.pushState(window.history.state, "language", newUrl)
+					//show notification
+					var notification_element = publicLibrary.makeElement("paper-toast", {
+						"text": "Hello world!",
+						"opened": true
+					})
+					Polymer.dom(this.root).appendChild(notification_element)
+					//if valid language find in url
+				} else {
+					if (checkForAddingSlash()) {
+						var newUrl = new URL(fullpath + "/", window.location.origin)
+						history.pushState(window.history.state, "language", newUrl)
 					}
 				}
-
-				//choosing lang
-				function chooseLang(sit) {
-					//if language find in url
-					if (sit == true) {
-						if (checkForAddingSlash()) {
-							var newUrl = new URL(fullpath + "/", window.location.origin);
-							history.pushState(window.history.state, "language", newUrl);
-						}
-						publicLibrary.localStorageUsers.set(activeUser.id, "Language", parts[1]);
-					}
-					//if language not find in url
-					else {
-						//select right lang and save it
-						var chLang = "per";
-						publicLibrary.localStorageUsers.set(activeUser.id, "Language", chLang);
-						if (parts[1].length != 0) {
-							chLang = chLang + fullpath;
-						}
-						if (checkForAddingSlash()) {
-							chLang = chLang + "/"
-						}
-						var newUrl = new URL(chLang, window.location.origin);
-						history.pushState(window.history.state, "language", newUrl);
-						//show notification
-						var notification_element = publicLibrary.makeElement("paper-toast", {
-							"text": "Hello world!",
-							"opened": true
-						});
-						Polymer.dom(local.root).appendChild(notification_element);
-					}
-				}
-
 				//check url for adding slash
 				function checkForAddingSlash() {
 					if (fullpath.slice(-1) == "/" && parts[1].length != 0)
@@ -150,11 +114,15 @@ limitations under the License.
 						return true;
 				}
 			},
+			//Toast a suggestion if default language is not probebly selected
+			suggestLanguage: function () {
+
+			},
 			//Append app theme.
 			loadTheme: function (themeName) {
 				if (themeName == null) {
-                    themeName = "default"
-                }
+					themeName = "default"
+				}
 				var themeLink = publicLibrary.makeElement("link", {
 					"rel": "import",
 					"href": publicLibrary.app.location + "theme/" + themeName + ".html"

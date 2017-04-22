@@ -12,44 +12,46 @@ limitations under the License.
 -->
 <script>
     //Use this object for active user data. this object is sync with localStorage and cookie.
-    activeUser = {
-        id: "",
-        distinctions: {}
+    var activeUser = {
+        ID: "",
+        //defaults distinctions
+        distinctions: {
+            HTML5Version: "",
+            Template: "test",
+            UnitOfMeasurement: "",
+            Language: "en",
+            PrivacyTerms: "",
+            DataUsage: 0,
+            Time: 0
+        }
     }
-    
-    //Some typical function
-    publicLibrary = {
 
+    //Some typical function
+    var publicLibrary = {
         // SabzCityElements use Domain name as App Name with some changes
         app: {
             name: "app-" + window.location.hostname.replace(/\./g, '-'),
             location: "/components/app-" + window.location.hostname.replace(/\./g, '-') + "/"
         },
-        //manage UserLocalDistinction in localstorage
-        localStorageUsers: {
-            make: function (uuid, value) {
-                var obj = {};
-                obj[uuid] = value;
-                localStorage.setItem("sabzCityUsersDistinctions", JSON.stringify(obj));
+        //manage UserLocalDistinctions in localstorage
+        userLocalDistinctions: {
+            updateAll: function (userID, value) {
+                localStorage.setItem(userID + "-Distinctions", JSON.stringify(value))
             },
-            set: function (uuid, key, value) {
-                var obj = JSON.parse(localStorage.getItem("sabzCityUsersDistinctions"));
-                obj[uuid][key] = value;
-                localStorage.setItem("sabzCityUsersDistinctions", JSON.stringify(obj));
-            },
-            get: function (uuid, key) {
-                var obj = JSON.parse(localStorage.getItem("sabzCityUsersDistinctions"));
+            getAll: function (userID) {
+                var obj = JSON.parse(localStorage.getItem(userID + "-Distinctions"))
                 if (!obj) {
-                    return false;
+                    return false
                 } else {
-                    if (key)
-                        return obj[uuid][key];
-                    else {
-                        if (obj[uuid])
-                            return obj[uuid];
-                        else
-                            return false;
-                    }
+                    return obj
+                }
+            },
+            getByKey: function (userID, key) {
+                var obj = JSON.parse(localStorage.getItem(userID + "-Distinctions"))
+                if (!obj || !obj[key]) {
+                    return false
+                } else {
+                    return obj[key];
                 }
             }
         },

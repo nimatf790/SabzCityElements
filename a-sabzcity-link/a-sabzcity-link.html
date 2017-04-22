@@ -22,8 +22,7 @@ limitations under the License.
 
     function sabzcityLinkHoverListener(event) {
       if (!this.getAttribute('href').includes(window.location.origin)) {
-        var getDist = publicLibrary.localStorageUsers.get.bind(this);
-        var href = getDist("guest", "Language") + this.getAttribute('href');
+        var href = activeUser.distinctions.Language + this.getAttribute('href');
         var goUrl = new URL(href, window.location.origin);
         this.setAttribute('href', goUrl)
       }
