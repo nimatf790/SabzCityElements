@@ -18,8 +18,8 @@ limitations under the License.
 <dom-module id="sabzcity-app-engine">
 	<template>
 		<template is="dom-if" if="{{needUserDistinction}}">
-			<iron-ajax auto id="userdistinction_ajax" url="//apis.sabz.city/usersinfo/v1/123456789123456/distinctions/front-end/" handle-as="json"
-			    on-response="_handleResponse">
+			<iron-ajax auto id="userdistinction_ajax" url="https://apis.sabz.city/usersinfo/v1/123456789123456/distinctions/front-end/"
+			    handle-as="json" on-response="_handleResponse">
 			</iron-ajax>
 		</template>
 	</template>
@@ -47,6 +47,10 @@ limitations under the License.
 				this.userDistinction()
 				//Set App Element
 				this.subDomainApp()
+				//Load default or user distinction theme
+				//Just test
+				userDefaultTheme = null
+				this.loadTheme(userDefaultTheme)
 			},
 			//response ajax
 			_handleResponse: function (e, req) {
@@ -58,7 +62,7 @@ limitations under the License.
 					}
 					//get userdistinction from api
 					else if (e.target.id == "userdistinction_ajax") {
-						publicLibrary.localStorageUsers.make(publicLibrary.model["uuid"], res);
+						publicLibrary.localStorageUsers.make(activeUser.id, res);
 						//go for set lang
 						this.language();
 					}
@@ -68,8 +72,8 @@ limitations under the License.
 			userDistinction: function () {
 				var sabzcitycookie = JSON.parse(publicLibrary.cookieManager.get("sabzcityCookie"))
 				var activeuser = sabzcitycookie["AU"]["uuid"];
-				publicLibrary.model["uuid"] = activeuser;
-				if (publicLibrary.localStorageUsers.get(publicLibrary.model["uuid"]) == false) {
+				activeUser.id = activeuser;
+				if (publicLibrary.localStorageUsers.get(activeUser.id) == false) {
 					this.needUserDistinction = true;
 				} else {
 					//go for set lang
@@ -78,13 +82,13 @@ limitations under the License.
 			},
 			//Append app elements by suggestion architecture.
 			subDomainApp: function () {
-				var link_elem = publicLibrary.makeElement("link", {
+				var appLink = publicLibrary.makeElement("link", {
 					"rel": "import",
 					"href": publicLibrary.app.location + publicLibrary.app.name + ".html"
 				});
-				document.head.appendChild(link_elem);
-				var app_element = publicLibrary.makeElement(publicLibrary.app.name);
-				Polymer.dom(this.root).appendChild(app_element);
+				document.head.appendChild(appLink);
+				var appElement = publicLibrary.makeElement(publicLibrary.app.name);
+				Polymer.dom(this.root).appendChild(appElement);
 			},
 			//select language
 			language: function () {
@@ -112,13 +116,13 @@ limitations under the License.
 							var newUrl = new URL(fullpath + "/", window.location.origin);
 							history.pushState(window.history.state, "language", newUrl);
 						}
-						publicLibrary.localStorageUsers.set(publicLibrary.model["uuid"], "Language", parts[1]);
+						publicLibrary.localStorageUsers.set(activeUser.id, "Language", parts[1]);
 					}
 					//if language not find in url
 					else {
 						//select right lang and save it
 						var chLang = "per";
-						publicLibrary.localStorageUsers.set(publicLibrary.model["uuid"], "Language", chLang);
+						publicLibrary.localStorageUsers.set(activeUser.id, "Language", chLang);
 						if (parts[1].length != 0) {
 							chLang = chLang + fullpath;
 						}
@@ -145,6 +149,17 @@ limitations under the License.
 					else
 						return true;
 				}
+			},
+			//Append app theme.
+			loadTheme: function (themeName) {
+				if (themeName == null) {
+                    themeName = "default"
+                }
+				var themeLink = publicLibrary.makeElement("link", {
+					"rel": "import",
+					"href": publicLibrary.app.location + "theme/" + themeName + ".html"
+				})
+				document.head.appendChild(themeLink)
 			}
 		});
 	</script>

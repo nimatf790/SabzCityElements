@@ -11,14 +11,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <script>
+    //Use this object for active user data. this object is sync with localStorage and cookie.
+    activeUser = {
+        id: "",
+        distinctions: {}
+    }
+    
+    //Some typical function
     publicLibrary = {
-        model: {
-            "uuid": ""
-        },
+
         // SabzCityElements use Domain name as App Name with some changes
         app: {
-            name: "app-" + window.location.hostname.replace(/\./g,'-'),
-            location:  "/components/app-" + window.location.hostname.replace(/\./g,'-') + "/"
+            name: "app-" + window.location.hostname.replace(/\./g, '-'),
+            location: "/components/app-" + window.location.hostname.replace(/\./g, '-') + "/"
         },
         //manage UserLocalDistinction in localstorage
         localStorageUsers: {
@@ -80,6 +85,6 @@ limitations under the License.
                 return false;
             }
         }
-        // cryptography 1-make a random offline key 2-encrypt a text by a key 3-decrypt a text by a key
     }
+    // cryptography 1-make a random offline key 2-encrypt a text by a key 3-decrypt a text by a key
 </script>
