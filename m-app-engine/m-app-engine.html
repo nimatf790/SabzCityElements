@@ -75,7 +75,7 @@ limitations under the License.
 							console.log("error")
 							return
 						}
-					}, 500)
+					}, 300)
 				}
 
 			},
@@ -105,7 +105,8 @@ limitations under the License.
 						urlWithLang = urlWithLang + "/"
 					}
 					var newUrl = new URL(urlWithLang, window.location.origin)
-				//if valid language find in url	
+					history.pushState(window.history.state, "language", newUrl)
+				//if valid language find in url
 				} else {
 					if (checkForAddingSlash()) {
 						var newUrl = new URL(fullpath + "/", window.location.origin)
@@ -124,13 +125,12 @@ limitations under the License.
 			},
 			//Toast a suggestion if default language is not probebly selected
 			suggestLanguage: function () {
-				Polymer.dom(this.root).appendChild(notification_element)
-				history.pushState(window.history.state, "language", newUrl)
 				//show notification
 				var notification_element = publicLibrary.makeElement("paper-toast", {
 					"text": "Hello world!",
 					"opened": true
 				})
+				Polymer.dom(this.root).appendChild(notification_element)
 			},
 			//Append app theme.
 			loadTheme: function (themeName) {
