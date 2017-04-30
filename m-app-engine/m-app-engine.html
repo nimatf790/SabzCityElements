@@ -49,7 +49,7 @@ limitations under the License.
 				//Set Active UserID globally in activeUser object
 				activeUser.ID = publicLibrary.cookieManager.get("AU")
 				//Get User Distinction from SabzCity Apis
-				//If request response is not 200OK read Distinction from LocalStorage and set it in activeUser Global object
+				//If request response is not 200OK and user have distinctions in LocalStorage: set userLocalDistinctions in activeUser Global object
 				if (downloadedDistictions == null && publicLibrary.userLocalDistinctions.getAll(activeUser.ID) == true) {
 					console.log("not download")
 					activeUser.distinctions = publicLibrary.userLocalDistinctions.getAll(activeUser.ID)
@@ -60,7 +60,7 @@ limitations under the License.
 					publicLibrary.userLocalDistinctions.updateAll(activeUser.ID, activeUser.distinctions)
 				//If everythings goes wrong just use Default value!
 				} else {
-					console.log("download goes wrong")
+					console.log("Distinction download goes wrong")
 					return
 				}
 			},
@@ -97,7 +97,7 @@ limitations under the License.
 						"opened": true
 					})
 					Polymer.dom(this.root).appendChild(notification_element)
-					//if valid language find in url
+				//if valid language find in url
 				} else {
 					if (checkForAddingSlash()) {
 						var newUrl = new URL(fullpath + "/", window.location.origin)

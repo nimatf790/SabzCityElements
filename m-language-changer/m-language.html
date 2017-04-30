@@ -11,7 +11,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<dom-module id="m-language">
+<dom-module id="m-language-changer">
     <template>
         <div>
 
@@ -23,30 +23,9 @@ limitations under the License.
     </style>
 
     <script>
-        //Declare global variable to use in some function
-        var devLang;
-        var elementLang;
-        var elementTexts;
-
         Polymer({
-            is: 'm-language',
+            is: 'm-language-changer',
             properties: {
-                domain: {
-                    type: String,
-                    observer: "domainChanged"
-                },
-                lang: {
-                    type: String,
-                    observer: "langChange"
-                },
-                elementName: {
-                    type: String,
-                    observer: "elementNameChanged"
-                },
-                arrayPosition: {
-                    type: String,
-                    observer: "arrayPositionChanged"   
-                }
             },
 
             // Use domain name to get need json from SabzCity APIs

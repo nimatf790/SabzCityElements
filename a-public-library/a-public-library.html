@@ -12,7 +12,7 @@ limitations under the License.
 -->
 <script>
     //Use this object for active user data. this object is sync with localStorage and cookie.
-    var activeUser = {
+    activeUser = {
         ID: "",
         //defaults distinctions
         distinctions: {
@@ -27,7 +27,7 @@ limitations under the License.
     }
 
     //Some typical function
-    var publicLibrary = {
+    publicLibrary = {
         // SabzCityElements use Domain name as App Name with some changes
         app: {
             name: "app-" + window.location.hostname.replace(/\./g, '-'),
