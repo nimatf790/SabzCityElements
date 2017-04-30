@@ -4,54 +4,65 @@
 <dom-module id="a-card">
 	<template>
 		<style type="text/css">
-		:host{
-			padding: 20px 40px;
-			background: var(--primary-background-color);
-			box-shadow: var(--primary-shadow);
-			max-width: 98%;
-			border-radius: 35px;
-			float: right;
-			color: var(--primary-text-color);
-			position: relative;
-			z-index: 1;
-			margin: 15px 10px;
-			box-sizing: border-box;
-		};
-		@media screen and (min-width: 1200px){
-			:host{
-				width: 1500px;
-			};
-		}
-		@media screen and (max-width: 1200px){
-			:host{
-				width: 1000px;
-			};
-		}
-		@media screen and (max-width: 1100px){
-			:host{
-				width: 750px;
-			};
-		}
-		@media screen and (max-width: 790px){
-			:host{
-				width: 460px;
-			};
-		}
-		@media screen and (max-width: 480px){
-			:host{
-				width: 300px;
-			};
-		}
+			:host {
+				padding: 20px 40px;
+				background: var(--primary-background-color);
+				box-shadow: var(--primary-shadow);
+				max-width: 98%;
+				border-radius: 35px;
+				float: right;
+				color: var(--primary-text-color);
+				position: relative;
+				z-index: 1;
+				margin: 15px 10px;
+				box-sizing: border-box;
+			}
+
+			;
+			@media screen and (min-width: 1200px) {
+				:host {
+					width: 1500px;
+				}
+				;
+			}
+
+			@media screen and (max-width: 1200px) {
+				:host {
+					width: 1000px;
+				}
+				;
+			}
+
+			@media screen and (max-width: 1100px) {
+				:host {
+					width: 750px;
+				}
+				;
+			}
+
+			@media screen and (max-width: 790px) {
+				:host {
+					width: 460px;
+				}
+				;
+			}
+
+			@media screen and (max-width: 480px) {
+				:host {
+					width: 300px;
+				}
+				;
+			}
 		</style>
 		<content></content>
 	</template>
 </dom-module>
 
 <script type="text/javascript">
-		Polymer({
-			is : "a-card",
-			ready : function() {
+	Polymer({
+		is: "a-card",
+		ready: function () {
 
-			}
-		});
+		}
+	});
 </script>

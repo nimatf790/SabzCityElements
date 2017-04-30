@@ -22,44 +22,49 @@ limitations under the License.
 
 <dom-module id="m-menu-services">
 	<template>
-	<style type="text/css">
-		iron-icon {
-			width: 58px;
-			height:50px;
-		}
-		paper-listbox{
-			width: 320px;
-			display: block;
-		}
-		paper-listbox paper-item{
-			width: 31.5%;
-			display: inline-block;
-			box-sizing: border-box;
-			padding: 10px 12px;
-			border:solid 1px transparent;
-			transition: border 0.1s;
-		}
-		paper-listbox paper-item:hover{
-			border:var(--black-border);
-		}
-		paper-listbox paper-item a *{
-			width: 100%;
-			text-align: center;
-			display: block;
-			font-family: var(--primary-font);
-            font-size: var(--small-text-size);
-            color: var(--primary-text-color);
-		}
-		paper-button.more{
-			--paper-button-ink-color : var(--secondary-background-color);
-			margin: 0px;
-			padding: 10px 0px;
-			display: block;
-			text-align: center;
-			font-family: var(--primary-font);
-            font-size: var(--small-text-size);
-		}
-	</style>
+		<style type="text/css">
+			iron-icon {
+				width: 58px;
+				height: 50px;
+			}
+
+			paper-listbox {
+				width: 320px;
+				display: block;
+			}
+
+			paper-listbox paper-item {
+				width: 31.5%;
+				display: inline-block;
+				box-sizing: border-box;
+				padding: 10px 12px;
+				border: solid 1px transparent;
+				transition: border 0.1s;
+			}
+
+			paper-listbox paper-item:hover {
+				border: var(--black-border);
+			}
+
+			paper-listbox paper-item a * {
+				width: 100%;
+				text-align: center;
+				display: block;
+				font-family: var(--primary-font);
+				font-size: var(--small-text-size);
+				color: var(--primary-text-color);
+			}
+
+			paper-button.more {
+				--paper-button-ink-color: var(--secondary-background-color);
+				margin: 0px;
+				padding: 10px 0px;
+				display: block;
+				text-align: center;
+				font-family: var(--primary-font);
+				font-size: var(--small-text-size);
+			}
+		</style>
 		<a-iconset></a-iconset>
 
 		<paper-listbox>
@@ -93,7 +98,7 @@ limitations under the License.
 					<iron-icon icon="my-svg-icons:shape"></iron-icon> <span>ویدیو</span>
 				</a>
 			</paper-item>
-			<paper-item raised >
+			<paper-item raised>
 				<a href="#">
 					<iron-icon icon="my-svg-icons:shape"></iron-icon> <span>موزیک</span>
 				</a>
@@ -113,7 +118,7 @@ limitations under the License.
 	</template>
 	<script type="text/javascript">
 		Polymer({
-			is : "m-menu-services"
+			is: "m-menu-services"
 		});
 	</script>
 </dom-module>
