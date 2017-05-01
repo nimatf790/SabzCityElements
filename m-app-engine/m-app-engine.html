@@ -19,7 +19,6 @@ limitations under the License.
 
 <dom-module id="m-app-engine">
 	<template>
-		<sabzcity-sdk version="v1" service="usersinfo" method="GetFrontEndDistinctions" userID="" on-response="_handleResponse"></sabzcity-sdk>
 	</template>
 	<script>
 		Polymer({
@@ -31,6 +30,7 @@ limitations under the License.
 				}
 			},
 			ready: function () {
+				local = this
 				//just for test
 				if (publicLibrary.cookieManager.get("AU") == false) {
 					publicLibrary.cookieManager.set("AU", "Guest", 10)
@@ -49,44 +49,38 @@ limitations under the License.
 				}
 				//Set App Element
 				this.appendApp()
-				//Set Language in url
-				this.pushLanguage(activeUser.distinctions.Language)
-				//Load related app theme
-				this.loadTheme(activeUser.distinctions.Template)
-			},
-			//response ajax
-			_handleResponse: function (e, req) {
-				local = this
-				if (req.xhr.status == 200 && req.xhr.readyState == 4) {
-					var res = e.detail.response
-					//get userdistinction from api
-					if (e.target.id == "userdistinction_ajax") {
-						console.log(res)
-						publicLibrary.userLocalDistinctions.updateAll(activeUser.ID, res)
-						activeUser.distinctions = res
-						local.distinctionReady = true
-					}
+
+				if (!activeUser.distinctions.Language) {
+					setTimeout(function () {
+						//Set Language in url
+						local.pushLanguage(activeUser.distinctions.Language)
+						//Load related app theme
+						local.loadTheme(activeUser.distinctions.Template)
+					}, 500)
 				}
 			},
 			//Update active user distinctions
 			updateUserDistinction: function () {
-				local = this
+				//Get User Distinction with sabzcitySDK
+				var apiResponse = sabzcitySDK("v1", "usersinfo", "GetFrontEndDistinctions", activeUser.ID)
 				//Check SabzCity APIs response deliver
-				if (local.distinctionReady == true) {
-					return
+				if (apiResponse) {
+					publicLibrary.userLocalDistinctions.updateAll(activeUser.ID, apiResponse)
+					activeUser.distinctions = apiResponse
 				} else {
 					setTimeout(function () {
-						//Wait 300ms to recive response
-						if (local.distinctionReady == true) {
-							return
-							//if download failed load previous distinction
+						//Wait 500ms to recive response
+						if (apiResponse) {
+							publicLibrary.userLocalDistinctions.updateAll(activeUser.ID, apiResponse)
+							activeUser.distinctions = apiResponse
+						//if download failed load previous distinction
 						} else if (publicLibrary.userLocalDistinctions.getAll(activeUser.ID)) {
 							activeUser.distinctions = publicLibrary.userLocalDistinctions.getAll(activeUser.ID)
-							//if theres no previous distinction in localstorage, load default settings
+						//if theres no previous distinction in localstorage, do as guest user
 						} else {
-							return
+							this.suggestLanguage()
 						}
-					}, 300)
+					}, 500)
 				}
 			},
 			//Append app elements by suggestion architecture.
@@ -134,18 +128,25 @@ limitations under the License.
 				}
 			},
 			//Guess language for Guest User and notice it!
-			suggestLanguage: function () {
+			suggestLanguage: function (req, res) {
 				//Send request to server and get suggested language by user IP
-				var detectedLanguage
-				//Wait and if anwser received in 300ms, set it
-				setTimeout(function () {
-					detectedLanguage = "en"
-				}, 300)
-				if (detectedLanguage != null) {
-					activeUser.distinctions.Language = detectedLanguage
-				// set Browser default language
+				var apiResponse = sabzcitySDK("v1", "!!!", "!!!")
+				//Check SabzCity APIs response deliver
+				if (apiResponse) {
+					//Set suggested language for Guest user distinction
+					activeUser.distinctions.Language = apiResponse
 				} else {
-					activeUser.distinctions.Language = navigator.language.substr(0, 2)
+					setTimeout(function () {
+						//Wait 500ms and if anwser received in 300ms, set it
+						if (apiResponse) {
+							//Set suggested language for Guest user distinction
+							activeUser.distinctions.Language = apiResponse
+							//Otherwise set browser default language!
+						} else {
+							//Set suggested language for Guest user distinction
+							activeUser.distinctions.Language = navigator.language.substr(0, 2)
+						}
+					}, 500)
 				}
 
 				//Willy nilly Toast the suggestion and the way user can change language in English
