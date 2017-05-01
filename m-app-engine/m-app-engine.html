@@ -12,16 +12,14 @@ limitations under the License.
 -->
 <!-- polymer elements -->
 <link rel="import" href="../../polymer/polymer.html">
-<link rel="import" href="../../iron-ajax/iron-ajax.html">
 <link rel="import" href="../../paper-toast/paper-toast.html">
 <!-- app elements -->
 <link rel="import" href="../a-public-library/a-public-library.html">
+<link rel="import" href="../../SabzCityWebComponents/sabzcity-sdk/sabzcity-sdk.html">
 
 <dom-module id="m-app-engine">
 	<template>
-		<iron-ajax auto id="userdistinction_ajax" url="https://apis.sabz.city/usersinfo/v1/123456789123458/distinctions/front-end/"
-		    handle-as="json" on-response="_handleResponse">
-		</iron-ajax>
+		<sabzcity-sdk version="v1" service="usersinfo" method="GetFrontEndDistinctions" userID="" on-response="_handleResponse"></sabzcity-sdk>
 	</template>
 	<script>
 		Polymer({
@@ -37,10 +35,24 @@ limitations under the License.
 				if (publicLibrary.cookieManager.get("AU") == false) {
 					publicLibrary.cookieManager.set("AU", "Guest", 10)
 				}
-				//get active user uuid and set distinction
-				this.userDistinction()
+
+				//Set Active UserID globally in activeUser object
+				activeUser.ID = publicLibrary.cookieManager.get("AU")
+
+				//Check if active user is not Guest get fresh distinction
+				if (activeUser.ID != "Guest") {
+					//get active user uuid and set distinction
+					this.updateUserDistinction()
+					//Guess language for Guest User and notice it!
+				} else {
+					this.suggestLanguage()
+				}
 				//Set App Element
 				this.appendApp()
+				//Set Language in url
+				this.pushLanguage(activeUser.distinctions.Language)
+				//Load related app theme
+				this.loadTheme(activeUser.distinctions.Template)
 			},
 			//response ajax
 			_handleResponse: function (e, req) {
@@ -56,28 +68,26 @@ limitations under the License.
 					}
 				}
 			},
-			//get active user uuid and set distinction
-			userDistinction: function () {
+			//Update active user distinctions
+			updateUserDistinction: function () {
 				local = this
-				//Set Active UserID globally in activeUser object
-				activeUser.ID = publicLibrary.cookieManager.get("AU")
+				//Check SabzCity APIs response deliver
 				if (local.distinctionReady == true) {
-					local.pushLanguage(activeUser.distinctions.Language)
-					local.loadTheme(activeUser.distinctions.Template)
-					console.log("sss")
+					return
 				} else {
 					setTimeout(function () {
-						if (local.distinctionReady == true || publicLibrary.userLocalDistinctions.getAll(activeUser.ID)) {
+						//Wait 300ms to recive response
+						if (local.distinctionReady == true) {
+							return
+							//if download failed load previous distinction
+						} else if (publicLibrary.userLocalDistinctions.getAll(activeUser.ID)) {
 							activeUser.distinctions = publicLibrary.userLocalDistinctions.getAll(activeUser.ID)
-							local.pushLanguage(activeUser.distinctions.Language)
-							local.loadTheme(activeUser.distinctions.Template)
+							//if theres no previous distinction in localstorage, load default settings
 						} else {
-							console.log("error")
 							return
 						}
 					}, 300)
 				}
-
 			},
 			//Append app elements by suggestion architecture.
 			appendApp: function () {
@@ -106,7 +116,7 @@ limitations under the License.
 					}
 					var newUrl = new URL(urlWithLang, window.location.origin)
 					history.pushState(window.history.state, "language", newUrl)
-				//if valid language find in url
+					//if valid language find in url
 				} else {
 					if (checkForAddingSlash()) {
 						var newUrl = new URL(fullpath + "/", window.location.origin)
@@ -123,11 +133,24 @@ limitations under the License.
 						return true;
 				}
 			},
-			//Toast a suggestion if default language is not probebly selected
+			//Guess language for Guest User and notice it!
 			suggestLanguage: function () {
-				//show notification
+				//Send request to server and get suggested language by user IP
+				var detectedLanguage
+				//Wait and if anwser received in 300ms, set it
+				setTimeout(function () {
+					detectedLanguage = "en"
+				}, 300)
+				if (detectedLanguage != null) {
+					activeUser.distinctions.Language = detectedLanguage
+				// set Browser default language
+				} else {
+					activeUser.distinctions.Language = navigator.language.substr(0, 2)
+				}
+
+				//Willy nilly Toast the suggestion and the way user can change language in English
 				var notification_element = publicLibrary.makeElement("paper-toast", {
-					"text": "Hello world!",
+					"text": "We detect this language for you. You can change it anytime from hamberger menu!" + activeUser.distinctions.Language,
 					"opened": true
 				})
 				Polymer.dom(this.root).appendChild(notification_element)
