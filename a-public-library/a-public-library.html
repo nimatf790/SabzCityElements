@@ -12,7 +12,7 @@ limitations under the License.
 -->
 <script type="text/javascript">
 	//Use this object for active user data. this object is sync with localStorage and cookie.
-	activeUser = {
+var activeUser = {
 		ID: "",
 		//defaults distinctions
 		distinctions: {
@@ -27,16 +27,20 @@ limitations under the License.
 	};
 
 	//Use this object for active app data like language data
-	activeApp = {
-		appText: ""
+var	activeApp = {
+		appText: {
+			aboutme_title : "اطلاعات من"
+		}
 	};
 
 	//Some typical function
-	publicLibrary = {
+var	publicLibrary = {
 		// SabzCityElements use Domain name as App Name with some changes
 		app: {
-			name: "app-" + window.location.hostname.replace(/\./g, '-'),
-			location: "/components/app-" + window.location.hostname.replace(/\./g, '-') + "/"
+			// name: "app-" + window.location.hostname.replace(/\./g, '-'),"my-sabz-city"
+			// location: "/components/app-" + window.location.hostname.replace(/\./g, '-') + "/"
+			name: "app-sabz-city",
+			location: "/components/app-sabz-city/"
 		},
 		//manage UserLocalDistinctions in localstorage
 		userLocalDistinctions: {
@@ -116,7 +120,7 @@ limitations under the License.
 	};
 
 	// All world wide language ISO codes & names
-	languagesList = {
+var languagesList = {
 		aa: {
 			name: 'Afar',
 			nativeName: 'Afaraf'
