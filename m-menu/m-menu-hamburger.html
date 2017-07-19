@@ -69,52 +69,68 @@ limitations under the License.
 		</style>
 
 		<div class="sidebar_cont_top">
-			<iron-icon class="sidebar_cont_top_logo" src="components/SabzCityElements/a-images/logo-white.svg"></iron-icon>
+			<iron-icon class="sidebar_cont_top_logo" src$="[[importPath]]../a-images/logo-white.svg"></iron-icon>
 		</div>
 		<paper-listbox>
-			<template is="dom-repeat" items="{{data}}">
-				<a class="paper-listbox_link" is="a-sabzcity-link" href="{{item.url}}">
-					<paper-item raised>{{item.name}}</paper-item>
-				</a>
-			</template>
+			<dom-repeat items="{{data}}">
+				<template>
+					<a-sabzcity-link>
+						<a class="paper-listbox_link" href="{{item.url}}">
+							<paper-item raised>{{item.name}}</paper-item>
+						</a>
+					</a-sabzcity-link>
+				</template>
+			</dom-repeat>
 		</paper-listbox>
 		<paper-listbox class="paper-listbox_fix">
-            <a class="paper-listbox_link" is="a-sabzcity-link" href="#">
-                <paper-item raised>
-                    <iron-icon icon="communication:call"></iron-icon>
-                    پشتیبانی آنلاین
-                </paper-item>
-            </a>
-            <a class="paper-listbox_link" is="a-sabzcity-link" href="#">
-                <paper-item raised>
-                    <iron-icon icon="communication:live-help"></iron-icon>
-                    آموزش سرویس
-                </paper-item>
-            </a>
-            <a class="paper-listbox_link" is="a-sabzcity-link" href="#">
-                <paper-item raised>
-                    <iron-icon icon="social:notifications-active"></iron-icon>
-                    فعالیت
-                </paper-item>
-            </a>
-            <a class="paper-listbox_link" is="a-sabzcity-link" href="#">
-                <paper-item raised>
-                    <iron-icon icon="icons:favorite-border"></iron-icon>
-                    علاقه مندی
-                </paper-item>
-            </a>
-            <a class="paper-listbox_link" is="a-sabzcity-link" href="#">
-                <paper-item raised>
-                    <iron-icon icon="social:share"></iron-icon>
-                    اشتراک گذاری صفحه
-                </paper-item>
-            </a>
-            <a class="paper-listbox_link" is="a-sabzcity-link" href="#">
-                <paper-item>
-                    <iron-icon icon="icons:mail"></iron-icon>
-                    پل ارتباطی
-                </paper-item>
-            </a>
+			<a-sabzcity-link>
+				<a class="paper-listbox_link" href="#">
+					<paper-item raised>
+						<iron-icon icon="communication:call"></iron-icon>
+						پشتیبانی آنلاین
+					</paper-item>
+				</a>
+			</a-sabzcity-link>
+			<a-sabzcity-link>
+				<a class="paper-listbox_link" href="#">
+					<paper-item raised>
+						<iron-icon icon="communication:live-help"></iron-icon>
+						آموزش سرویس
+					</paper-item>
+				</a>
+			</a-sabzcity-link>
+			<a-sabzcity-link>
+				<a class="paper-listbox_link" href="#">
+					<paper-item raised>
+						<iron-icon icon="social:notifications-active"></iron-icon>
+						فعالیت
+					</paper-item>
+				</a>
+			</a-sabzcity-link>
+			<a-sabzcity-link>
+				<a class="paper-listbox_link" href="#">
+					<paper-item raised>
+						<iron-icon icon="icons:favorite-border"></iron-icon>
+						علاقه مندی
+					</paper-item>
+				</a>
+			</a-sabzcity-link>
+			<a-sabzcity-link>
+				<a class="paper-listbox_link" href="#">
+					<paper-item raised>
+						<iron-icon icon="social:share"></iron-icon>
+						اشتراک گذاری صفحه
+					</paper-item>
+				</a>
+			</a-sabzcity-link>
+			<a-sabzcity-link>
+				<a class="paper-listbox_link" href="#">
+					<paper-item>
+						<iron-icon icon="icons:mail"></iron-icon>
+						پل ارتباطی
+					</paper-item>
+				</a>
+			</a-sabzcity-link>
 		</paper-listbox>
 	</template>
 	<script type="text/javascript">

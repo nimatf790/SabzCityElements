@@ -13,20 +13,20 @@ limitations under the License.
 
 <dom-module id="m-language-changer">
     <template>
-        <div>
+        <style>
 
+        </style>
+
+        <div>
         </div>
     </template>
 
-    <style>
 
-    </style>
 
     <script>
         Polymer({
             is: 'm-language-changer',
-            properties: {
-            },
+            properties: {},
 
             // Use domain name to get need json from SabzCity APIs
             domainChanged: function (domain) {
@@ -46,10 +46,10 @@ limitations under the License.
                     //Check User set language from localStorage
                     if (localStorage.language) {
                         elementLang = localStorage.language;
-                    // Check user distinction from SabzCity APIs
+                        // Check user distinction from SabzCity APIs
 
-                    // Check User Location to guess user language. Send IP, Browser default language ... to related APIs and get answer.
-                    // get Browser default language by navigator.language
+                        // Check User Location to guess user language. Send IP, Browser default language ... to related APIs and get answer.
+                        // get Browser default language by navigator.language
                     } else {
                         elementLang = "per";
                     }
@@ -83,7 +83,7 @@ limitations under the License.
                         document.getElementsByTagName(userElementName)[i].set('dataArray', dataArr);
                     }
                 });
-        }
+            }
         });
     </script>
 </dom-module>

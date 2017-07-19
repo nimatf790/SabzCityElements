@@ -10,14 +10,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+<!--
+Extend the <a> tag with history.pushState()
+<a-sabzcity-link>
+  <a href="/path" [title="New Page Title"] [state="{'message':'New State!'}"]>title</a>
+</a-sabzcity-link>
+-->
+
 <link rel="import" href="../a-public-library/a-public-library.html">
 
 <script type="text/javascript">
   (function () {
-    // Extend the <a> tag with history.pushState()
-    //
-    // <a is="a-sabzcity-link" href="/path" [title="New Page Title"] [state="{'message':'New State!'}"]>title</a>
-
     var HTMLPushStateAnchorElement = Object.create(HTMLAnchorElement.prototype);
 
     function sabzcityLinkHoverListener(event) {

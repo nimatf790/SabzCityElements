@@ -17,18 +17,6 @@ function loadScript(src) {
   document.head.appendChild(js);
 }
 
-(function browserSupportWebComponents() {
-  if ('registerElement' in document &&
-    'import' in document.createElement('link') &&
-    'content' in document.createElement('template')) {
-    // platform is good!
-  }
-  else {
-    // polyfill the platform!
-    loadScript('../../../components/webcomponentsjs/webcomponents.min.js')
-  }
-})();
-
 // Make needed notification message to user (send to notification element to display to user)
 
 // alert on refresh||leave page for unsaved data activity when do with no internet connection
