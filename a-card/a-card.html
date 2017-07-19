@@ -3,7 +3,7 @@
 
 <dom-module id="a-card">
 	<template>
-		<style type="text/css">
+		<style>
 			:host {
 				padding: 20px 40px;
 				background: var(--primary-background-color);
@@ -54,7 +54,8 @@
 				;
 			}
 		</style>
-		<content></content>
+
+		<slot> </slot>
 	</template>
 </dom-module>
 
