@@ -28,6 +28,7 @@
 				padding-top: 3px;
 			}
 		</style>
+
 		<a href="{{url}}" tabindex="-1">
 			<template is="dom-if" if="{{_checkSocial(social,'google')}}">
 				<paper-button class="paper-btn google-sign">
@@ -41,21 +42,19 @@
 			</template>
 		</a>
 	</template>
-</dom-module>
 
-<script type="text/javascript">
-	Polymer({
-		is: "a-social-btn",
-		properties: {
-			social: {
-				type: String
+	<script>
+		Polymer({
+			is: "a-social-btn",
+			properties: {
+				social: {
+					type: String
+				}
+			},
+			ready: function () {},
+			_checkSocial: function (social, valu) {
+				return social == valu
 			}
-		},
-		ready: function () {
-
-		},
-		_checkSocial: function (social, valu) {
-			return social == valu
-		}
-	});
-</script>
+		});
+	</script>
+</dom-module>

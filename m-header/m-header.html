@@ -84,6 +84,7 @@ limitations under the License.
 				overflow: auto;
 			}
 		</style>
+
 		<app-header reveals>
 			<app-toolbar>
 				<iron-grid>
@@ -99,53 +100,23 @@ limitations under the License.
 				</iron-grid>
 			</app-toolbar>
 		</app-header>
+
 		<app-drawer align="right" id="drawer">
 			<div class="sidebar_cont">
 				<m-menu-hamburger data="{{data}}"></m-menu-hamburger>
 			</div>
 		</app-drawer>
+
 		<a-modal id="modal">
 			<div id="modal_contents"></div>
 		</a-modal>
 	</template>
-	<script type="text/javascript">
-		// Polymer({
-		// 	is: "m-header",
-		// 	properties: {
-		// 		data: {
-		// 			type: Object,
-		// 			notify: true
-		// 		}
-		// 	},
-		// 	listeners: {
-		// 		'head_menu_toggle.click': '_handleNavigationToggle'
-		// 	},
-		// 	_handleNavigationToggle: function () {
-		// 		var drawer = this.$.drawer;
-		// 		drawer.opened = true;
-		// 	},
-		// 	_handleModalOpen: function (e) {
-		// 		if (e.target.getAttribute("data-modal"))
-		// 			var data = e.target.getAttribute("data-modal")
-		// 		else if (e.target.parentNode.getAttribute("data-modal"))
-		// 			var data = e.target.parentNode.getAttribute("data-modal")
-		// 		else
-		// 			var data = e.target.parentNode.parentNode.getAttribute("data-modal")
 
-		// 		var elem = publicLibrary.makeElement(data);
-		// 		var modal = document.querySelector("#modal");
-		// 		var modalElemContent = modal.querySelector("#modal_contents");
-		// 		modalElemContent.innerHTML = '';
-		// 		modalElemContent.appendChild(elem);
-		// 		modal.open();
-		// 	},
-		// 	ready: function () {
-		// 		this.fire('kick', "sasas");
-		// 	}
-		// });
-
-		  class MHeader extends Polymer.Element {
-			static get is() { return 'm-header' }
+	<script>
+		class MHeader extends Polymer.Element {
+			static get is() {
+				return 'm-header'
+			}
 
 			static get properties() {
 				return {
@@ -158,7 +129,9 @@ limitations under the License.
 
 			ready() {
 				super.ready();
-				this.$.head_menu_toggle.addEventListener('click', e => {this._handleNavigationToggle(e)});
+				this.$.head_menu_toggle.addEventListener('click', e => {
+					this._handleNavigationToggle(e)
+				});
 			}
 
 			_handleNavigationToggle() {
@@ -186,6 +159,7 @@ limitations under the License.
 				super.connectedCallback();
 			}
 		}
+		
 		customElements.define(MHeader.is, MHeader);
 	</script>
 </dom-module>

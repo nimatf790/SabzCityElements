@@ -94,25 +94,25 @@
 			</iron-scroll-spy>
 		</div>
 	</template>
-</dom-module>
 
-<script type="text/javascript">
-	Polymer({
-		is: "a-modal",
-		ready: function () {
-			this.listen(this.$.back, 'tap', 'close');
-		},
-		open: function () {
-			var modalElem = this.$.modal_inner;
-			modalElem.parentElement.style.cssText = "transform: scale(1);opacity: 1;";
-			publicLibrary.class.add(modalElem, "active")
-		},
-		close: function () {
-			var modalElem = this.$.modal_inner;
-			publicLibrary.class.remove(modalElem, "active");
-			setTimeout(function () {
-				modalElem.parentElement.style.cssText = "transform: scale(0);opacity: 0;";
-			}, 300)
-		}
-	});
-</script>
+	<script>
+		Polymer({
+			is: "a-modal",
+			ready: function () {
+				this.listen(this.$.back, 'tap', 'close');
+			},
+			open: function () {
+				var modalElem = this.$.modal_inner;
+				modalElem.parentElement.style.cssText = "transform: scale(1);opacity: 1;";
+				publicLibrary.class.add(modalElem, "active")
+			},
+			close: function () {
+				var modalElem = this.$.modal_inner;
+				publicLibrary.class.remove(modalElem, "active");
+				setTimeout(function () {
+					modalElem.parentElement.style.cssText = "transform: scale(0);opacity: 0;";
+				}, 300)
+			}
+		});
+	</script>
+</dom-module>

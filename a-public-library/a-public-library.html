@@ -10,7 +10,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<script type="text/javascript">
+<script>
 	//Use this object for active user data. this object is sync with localStorage and cookie.
 var activeUser = {
 		ID: "",
@@ -37,10 +37,8 @@ var	activeApp = {
 var	publicLibrary = {
 		// SabzCityElements use Domain name as App Name with some changes
 		app: {
-			// name: "app-" + window.location.hostname.replace(/\./g, '-'),"my-sabz-city"
-			// location: "/components/app-" + window.location.hostname.replace(/\./g, '-') + "/"
-			name: "app-sabz-city",
-			location: "/components/app-sabz-city/"
+			name: "app-" + window.location.hostname.replace(/\./g, '-'),
+			location: "/components/app-" + window.location.hostname.replace(/\./g, '-') + "/"
 		},
 		//manage UserLocalDistinctions in localstorage
 		userLocalDistinctions: {
