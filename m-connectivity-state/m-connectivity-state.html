@@ -1,0 +1,93 @@
+https://github.com/advanced-rest-client/connectivity-state/blob/master/connectivity-state.html
+<link rel="import" href="../../app-storage/app-network-status-behavior.html">
+<!--
+Copyright 2016 SabzCity
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<link rel="import" href="../../iron-meta/iron-meta.html">
+<dom-module id="sabzcity-app-engine">
+    <template>
+        <style>
+
+        </style>
+        <!-- have a very tiny bar in top of all elements in 3 color indicate
+        red:no internet, yellow:internet without sabzcity apis connectivity, green:have internet & connectivity to apis -->
+    </template>
+    <script>
+        Polymer({
+            is: 'm-connectivity-state',
+            properties: {
+                /**
+                 * Current conectivity state.
+                 * If set to false then thete's no networ connection.
+                 * If true it means that the network is up an running and the app
+                 * is probably able to connect with the outside world but it's not
+                 * guaranteed.
+                 */
+                online: {
+                    type: Boolean,
+                    value: true,
+                    notify: true,
+                    readOnly: true
+                },
+                // Current conectivity state to backend endpoint
+                domain: {
+                    type: String
+                },
+                /**
+                 * A reference to the `<iron-meta>` element.
+                 * @type {Object}
+                 */
+                metaElement: {
+                    type: Object,
+                    value: function () {
+                        let meta = document.createElement('iron-meta');
+                        meta.key = 'connectivity-state';
+                        return meta;
+                    },
+                    notify: true,
+                    readOnly: true
+                },
+            },
+            observers: [
+                '_onlineStateChanged(online)'
+            ],
+            _onlineStateChanged: function (online) {
+                if (this.metaElement) {
+                    this.metaElement.value = online;
+                }
+                this.fire('connectivity-state-changed', {
+                    online: online
+                });
+            },
+            attached: function () {
+                if (!navigator.onLine && !this.state) {
+                    // Change the default state.
+                    this._setOnline(false);
+                }
+                this.unlisten(window, 'offline', '_offlineHandler');
+                this.unlisten(window, 'online', '_onlineHandler');
+                this.listen(window, 'offline', '_offlineHandler');
+                this.listen(window, 'online', '_onlineHandler');
+            },
+            detached: function () {
+                this.unlisten(window, 'offline', '_offlineHandler');
+                this.unlisten(window, 'online', '_onlineHandler');
+            },
+            _offlineHandler: function () {
+                this._setOnline(false);
+            },
+            _onlineHandler: function () {
+                this._setOnline(true);
+            }
+        });
+    </script>
+</dom-module>
