@@ -1,0 +1,115 @@
+<!-- polymer elements -->
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../paper-button/paper-button.html">
+<link rel="import" href="../../iron-icon/iron-icon.html">
+<link rel="import" href="../../iron-icons/iron-icons.html">
+<link rel="import" href="../../paper-button/paper-button.html">
+<!-- app elements -->
+<link rel="import" href="../a-iconset/a-iconset.html">
+
+<dom-module id="a-expansion">
+    <template>
+	    <style>
+
+            .container {
+                border-bottom: var(--black-border);
+                overflow: hidden;
+            }
+
+            .sub-container {
+                padding: 8px 24px;
+            }
+
+            .button-container {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            #content {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s linear;
+                font-size: var(--h3-text-size);
+            }
+
+            .apply-container {
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            .apply-container paper-button {
+                text-align: center;
+            }
+
+            .active {
+                color: var(--fifth-text-color);
+                font-weight: 600;
+            }
+
+            .disabled { background-color:  transparent; }
+
+            #icon {
+                transform: rotate(0deg);
+                transition: 0.3s;
+                width: 24px;
+                height: 24px;
+            }
+
+		</style>
+        <div class="container">
+            <div class="sub-container">
+                <paper-button noink on-click="toggleButton">
+                    <div class="button-container">
+                        <span>{{title}}</span>
+                        <iron-icon id="icon" icon="icons:expand-more"></iron-icon>
+                    </div>
+                </paper-button>
+                <div id="content">
+                    <slot name="content"></slot>
+                    <template is="dom-if" if="{{includeSaveButtons}}">
+                        <div class="apply-container">
+                            <paper-button>لغو</paper-button>
+                            <template is="dom-if" if="{{!isSaveActive}}">
+                                <paper-button class="disabled" disabled>ذخیره</paper-button>
+                            </template>
+                            <template is="dom-if" if="{{isSaveActive}}">
+                                <paper-button class="active">ذخیره</paper-button>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+	</template>
+
+	<script>
+        class AExpansion extends Polymer.Element {
+            static get is() { return 'a-expansion' }
+            static get properties() {
+                return {
+                    title: String,
+                    includeSaveButtons: {
+                        type: Boolean,
+                        value: false
+                    },
+                    isSaveActive: {
+                        type: Boolean,
+                        value: false
+                    }
+                }
+            }
+            toggleButton() {
+                const content = this.$.content;
+                const icon = this.$.icon;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    icon.style.transform = "rotate(0deg)";
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    icon.style.transform = "rotate(180deg)";
+                }
+            }
+        }
+    	customElements.define(AExpansion.is, AExpansion);
+	</script>
+</dom-module>
