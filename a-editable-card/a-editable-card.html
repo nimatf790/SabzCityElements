@@ -1,0 +1,42 @@
+<!-- polymer elements -->
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../mat-elements/mat-icon-button.html">
+<link rel="import" href="../../mat-elements/mat-icons/editor.html">
+
+<dom-module id="a-editable-card">
+	<template>
+		<style>
+			:host {
+				padding: 20px 40px;
+				background: var(--primary-background-color);
+				box-shadow: var(--primary-shadow);
+				max-width: 98%;
+				border-radius: 2px;
+				float: right;
+				color: var(--primary-text-color);
+				position: relative;
+				z-index: 1;
+				margin: 15px 10px;
+				box-sizing: border-box;
+			}
+
+			.edit-icon {
+				position: absolute;
+				z-index: 100;
+				top: 0;
+				right: 0;
+			}
+
+
+		</style>
+		<mat-icon-button class="edit-icon" icon="editor:mode-edit"></mat-icon-button>
+		<slot></slot>
+	</template>
+
+	<script>
+		class AEditableCard extends Polymer.Element {
+			static get is() { return 'a-editable-card' }
+		}
+		customElements.define(AEditableCard.is, AEditableCard)
+	</script>
+</dom-module>
