@@ -3,6 +3,7 @@
 <link rel="import" href="../../paper-button/paper-button.html">
 <link rel="import" href="../../iron-icon/iron-icon.html">
 <link rel="import" href="../../iron-icons/iron-icons.html">
+<link rel="import" href="../../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../paper-button/paper-button.html">
 <!-- app elements -->
 <link rel="import" href="../a-iconset/a-iconset.html">
@@ -20,15 +21,22 @@
                 padding: 8px 24px;
             }
 
+            .sub-container .title-button {
+              width: 100%;
+              display: flex;
+              justify-content: flex-start;
+            }
+
             .button-container {
                 display: flex;
                 justify-content: space-between;
+                width: 100%;
             }
 
             #content {
                 max-height: 0;
                 overflow: hidden;
-                transition: max-height 0.3s linear;
+                transition: all 0.3s linear;
                 font-size: var(--h3-text-size);
             }
 
@@ -58,12 +66,13 @@
 		</style>
         <div class="container">
             <div class="sub-container">
-                <paper-button noink on-click="toggleButton">
-                    <div class="button-container">
+                <div class="button-container">
+                    <paper-button on-click="toggleButton" class="title-button">
                         <span>{{title}}</span>
-                        <iron-icon id="icon" icon="icons:expand-more"></iron-icon>
-                    </div>
-                </paper-button>
+                    </paper-button>
+                    <paper-icon-button id="exi" icon="expand-more" on-click="toggleButton"></paper-icon-button>
+                </div>
+
                 <div id="content">
                     <slot name="content"></slot>
                     <template is="dom-if" if="{{includeSaveButtons}}">
@@ -100,12 +109,15 @@
             }
             toggleButton() {
                 const content = this.$.content;
-                const icon = this.$.icon;
+                const icon = this.$.exi;
                 if (content.style.maxHeight) {
                     content.style.maxHeight = null;
+                    content.style.padding = '0';
                     icon.style.transform = "rotate(0deg)";
                 } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
+                    content.style.maxHeight = `${content.scrollHeight}px`;
+                    content.style.paddingTop = '15px';
+                    content.style.paddingBottom = '15px';
                     icon.style.transform = "rotate(180deg)";
                 }
             }
