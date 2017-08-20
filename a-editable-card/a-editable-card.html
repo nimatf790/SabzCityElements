@@ -1,5 +1,6 @@
 <!-- polymer elements -->
 <link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../paper-button/paper-button.html">
 <link rel="import" href="../../mat-elements/mat-icon-button.html">
 <link rel="import" href="../../mat-elements/mat-icons/editor.html">
 
@@ -27,15 +28,49 @@
 				right: 0;
 			}
 
+			.buttons-container {
+				width: 100%;
+				display: flex;
+				justify-content: flex-end;
+			}
+
+			.save-button {
+				color: var(--fifth-text-color);
+			}
+
 
 		</style>
-		<mat-icon-button class="edit-icon" icon="editor:mode-edit"></mat-icon-button>
-		<slot></slot>
+		<template is="dom-if" if="{{isEditable}}">
+			<div>
+				<slot name="editing"></slot>
+				<div class="buttons-container">
+					<paper-button on-click="changeState">لغو</paper-button>
+					<paper-button on-click="changeState" class="save-button">ذخیره</paper-button>
+				</div>
+			</div>
+		</template>
+		<template is="dom-if" if="{{!isEditable}}">
+			<mat-icon-button class="edit-icon" icon="editor:mode-edit" on-click="changeState"></mat-icon-button>
+			<div>
+				<slot name="presenting"></slot>
+			</div>
+		</template>
 	</template>
 
 	<script>
 		class AEditableCard extends Polymer.Element {
 			static get is() { return 'a-editable-card' }
+			static get properties() {
+				return {
+					isEditable: {
+						type: Boolean,
+						value: false
+					}
+				};
+			}
+			changeState() {
+				this.isEditable = !this.isEditable;
+			}
 		}
 		customElements.define(AEditableCard.is, AEditableCard)
 	</script>
