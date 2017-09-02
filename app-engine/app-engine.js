@@ -14,9 +14,12 @@ limitations under the License.
 import "../../paper-toast/paper-toast.html"
 
 import "../a-public-library/a-public-library.js"
-import "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-sdk.html"
+import "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-sdk.js"
 
 (function ready() {
+	// Set Base Tag by currect Domain
+	document.write("<base href='//" + document.location.host + "' />");
+
 	//just for test
 	if (publicLibrary.cookieManager.get("AU") == false) {
 		publicLibrary.cookieManager.set("AU", "Guest", 10)
@@ -35,6 +38,7 @@ import "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-sdk.html"
 	}
 	//Set App Element
 	appendApp()
+	appendManifest()
 
 	if (!activeUser.distinctions.Language) {
 		setTimeout(function () {
@@ -158,4 +162,12 @@ function loadTheme(themeName) {
 		"href": publicLibrary.app.location + "themes/" + themeName + ".html"
 	})
 	document.head.appendChild(themeLink)
+}
+
+function appendManifest() {
+	// Get manifest data and set it
+	manifest = document.createElement('link')
+	manifest.href = "/components/" + publicLibrary.app.name + "/manifest.json"
+	manifest.rel = 'manifest'
+	document.head.appendChild(manifest)
 }
