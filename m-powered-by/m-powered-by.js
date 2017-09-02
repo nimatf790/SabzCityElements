@@ -1,5 +1,5 @@
 /*
-Copyright 2016 SabzCity
+Copyright 2017 SabzCity
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ limitations under the License.
 document.write("<base href='//" + document.location.host + "' />");
 
 // Get manifest data and set it
-appName = "app-" + window.location.hostname.replace(/\./g,'-')
+appName = "app-" + window.location.hostname.replace(/\./g, '-')
 manifest = document.createElement('link')
 manifest.href = "/components/" + appName + "/manifest.json"
 manifest.rel = 'manifest'
