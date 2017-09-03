@@ -11,37 +11,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-//Use this object for active user data. this object is sync with localStorage and cookie.
-var activeUser = {
-	ID: "",
-	//defaults distinctions
-	distinctions: {
-		HTML5Version: "",
-		Template: "default",
-		UnitOfMeasurement: "",
-		Language: "",
-		PrivacyTerms: "",
-		DataUsage: 0,
-		Time: 0
-	}
-};
-
-//Use this object for active app data like language data
-var activeApp = {
-	appText: {
-		aboutme_title: "اطلاعات من"
-	}
-};
-
 //Some typical function
 var publicLibrary = {
-	// SabzCityElements use Domain name as App Name with some changes
-	app: {
-		name: "app-" + window.location.hostname.replace(/\./g, '-'),
-		location: "/components/app-" + window.location.hostname.replace(/\./g, '-') + "/"
-		// name: "app-my-sabz-city",
-		// location: "/components/app-my-sabz-city/"
-	},
 	//manage UserLocalDistinctions in localstorage
 	userLocalDistinctions: {
 		updateAll: function (userID, value) {
