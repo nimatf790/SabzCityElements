@@ -17,9 +17,9 @@ import { PaperButtonBehavior, PaperButtonBehaviorImpl } from '../paper-behaviors
 import '../paper-styles/element-styles/paper-material-styles.js';
 import { Polymer } from '../polymer/lib/legacy/polymer-fn.js';
 
-import * as materialDesignTemplate from './material-design.html'
+import materialDesignTemplate from './material-design.html'
 
-class AButton extends Polymer.Element {
+export class AButton extends Polymer.Element {
   static get is() { return 'a-button' }
   static get template() { return materialDesignTemplate }
   static get behaviors() { return PaperButtonBehavior }
@@ -51,4 +51,3 @@ class AButton extends Polymer.Element {
 }
 
 customElements.define(AButton.is, AButton)
-export { AButton }

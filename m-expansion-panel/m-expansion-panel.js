@@ -21,8 +21,8 @@ import "../../paper-button/paper-button.html"
 import "../a-iconset/a-iconset.html"
 import * as materialDesignTemplate from './material-design.html'
 
-class MExpansion extends Polymer.Element {
-    static get is() { return 'm-expansion' }
+export class MExpansionPanel extends Polymer.Element {
+    static get is() { return 'm-expansion-panel' }
     static get template() { return materialDesignTemplate }
     static get properties() {
         return {
@@ -53,5 +53,4 @@ class MExpansion extends Polymer.Element {
     }
 }
 
-customElements.define(MExpansion.is, MExpansion)
-export { MExpansion }
+customElements.define(MExpansionPanel.is, MExpansionPanel)

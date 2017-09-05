@@ -22,19 +22,16 @@ Extend the <a> tag with history.pushState()
 
 import "../a-public-library/a-public-library.js"
 
-class ASabzCityLink extends HTMLAnchorElement {
+export class ASabzCityLink extends HTMLAnchorElement {
   static get is() { return 'a-sabzcity-link' }
-
   attachedCallback() {
     this.addEventListener('click', this.pushStateAnchorEventListener, false);
     this.addEventListener('mouseover', this.sabzcityLinkHoverListener, false);
   }
-
   detachedCallback() {
     this.removeEventListener('click', this.pushStateAnchorEventListener, false);
     this.removeEventListener('mouseover', this.sabzcityLinkHoverListener, false);
   }
-
   sabzcityLinkHoverListener(event) {
     if (!this.getAttribute('href').includes(window.location.origin)) {
       var href = activeUser.distinctions.Language + this.getAttribute('href')
@@ -42,7 +39,6 @@ class ASabzCityLink extends HTMLAnchorElement {
       this.setAttribute('href', goUrl)
     }
   }
-
   pushStateAnchorEventListener(event) {
     // open in new tab
     if (event.ctrlKey || event.metaKey || event.which === 2) {
@@ -97,4 +93,3 @@ class ASabzCityLink extends HTMLAnchorElement {
 }
 
 customElements.define(ASabzCityLink.is, ASabzCityLink)
-export { ASabzCityLink }
