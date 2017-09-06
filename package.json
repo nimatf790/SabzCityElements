@@ -1,17 +1,17 @@
 {
-  "name": "SabzCityElements",
+  "name": "sabzcityelements",
   "version": "0.1",
-  "authors": [
-    "SabzCity co."
-  ],
   "description": "Common Custom Elements use in SabzCity Platforms",
-  "main": [],
-  "license": "https://github.com/SabzCity/SabzCityElements/LICENSE",
+  "license": "SEE LICENSE IN https://github.com/SabzCity/SabzCityElements/LICENSE",
   "homepage": "https://github.com/SabzCity/SabzCityElements",
-  "private": true,
-  "ignore": [],
-  "devDependencies": {
+  "bugs": {
+    "url": "https://github.com/sabzcity/sabz.city/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sabzcity/SabzCityElements.git"
+  },
+  "author": "SabzCity co.",
   "dependencies": {
     "webcomponentsjs": "webcomponents/webcomponentsjs",
     "polymer": "polymer/polymer",
@@ -25,7 +25,8 @@
     "iron-iconset": "PolymerElements/iron-iconset",
     "paper-listbox": "PolymerElements/paper-listbox",
     "paper-item": "PolymerElements/paper-item",
-
     "": "/swagger-api/swagger-ui"
-  }
+  },
+  "flat": true,
+  "private": true
 }

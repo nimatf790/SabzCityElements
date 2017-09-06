@@ -11,10 +11,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import "../../paper-toast/paper-toast.html"
+import "../../paper-toast/paper-toast.js"
 
-import "../a-public-library/a-public-library.js"
-import "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-sdk.js"
+import {publicLibrary} from '../a-public-library/a-public-library.js'
+import {appDistinctions} from '../a-app-engine/app-distinctions.js'
+import {SabzCitySDK} from "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-sdk.js"
 
 (function ready() {
 	// Set Base Tag by currect Domain
@@ -26,10 +27,10 @@ import "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-sdk.js"
 	}
 
 	//Set Active UserID globally in activeUser object
-	activeUser.ID = publicLibrary.cookieManager.get("AU")
+	appDistinctions.activeUserID = publicLibrary.cookieManager.get("AU")
 
 	//Check if active user is not Guest get fresh distinction
-	if (activeUser.ID != "Guest") {
+	if (appDistinctions.activeUserID != "Guest") {
 		//get active user uuid and set distinction
 		updateUserDistinction()
 		//Guess language for Guest User and notice it!
@@ -40,12 +41,12 @@ import "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-sdk.js"
 	appendApp()
 	appendManifest()
 
-	if (!activeUser.distinctions.Language) {
+	if (!appDistinctions.Language) {
 		setTimeout(function () {
 			//Set Language in url
-			pushLanguage(activeUser.distinctions.Language)
+			pushLanguage(appDistinctions.Language)
 			//Load related app theme
-			loadTheme(activeUser.distinctions.Template)
+			loadTheme(appDistinctions.Template)
 		}, 500)
 	}
 })()
@@ -53,20 +54,20 @@ import "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-sdk.js"
 //Update active user distinctions
 function updateUserDistinction() {
 	//Get User Distinction with sabzcitySDK
-	var apiResponse = sabzcitySDK("v1", "usersinfo", "GetFrontEndDistinctions", activeUser.ID)
+	var apiResponse = sabzcitySDK("v1", "usersinfo", "GetFrontEndDistinctions", appDistinctions.activeUserID)
 	//Check SabzCity APIs response deliver
 	if (apiResponse) {
-		publicLibrary.userLocalDistinctions.updateAll(activeUser.ID, apiResponse)
-		activeUser.distinctions = apiResponse
+		publicLibrary.userLocalDistinctions.updateAll(appDistinctions.activeUserID, apiResponse)
+		appDistinctions.distinctions = apiResponse
 	} else {
 		setTimeout(function () {
 			//Wait 500ms to recive response
 			if (apiResponse) {
-				publicLibrary.userLocalDistinctions.updateAll(activeUser.ID, apiResponse)
-				activeUser.distinctions = apiResponse
+				publicLibrary.userLocalDistinctions.updateAll(appDistinctions.activeUserID, apiResponse)
+				appDistinctions.distinctions = apiResponse
 				//if download failed load previous distinction
-			} else if (publicLibrary.userLocalDistinctions.getAll(activeUser.ID)) {
-				activeUser.distinctions = publicLibrary.userLocalDistinctions.getAll(activeUser.ID)
+			} else if (publicLibrary.userLocalDistinctions.getAll(appDistinctions.activeUserID)) {
+				appDistinctions.distinctions = publicLibrary.userLocalDistinctions.getAll(appDistinctions.activeUserID)
 				//if theres no previous distinction in localstorage, do as guest user
 			} else {
 				this.suggestLanguage()

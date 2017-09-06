@@ -12,7 +12,7 @@ limitations under the License.
 */
 
 //Use this object for active app data. this object is sync with localStorage and cookie.
-var appDistinctions = {
+export const appDistinctions = {
     // active user details
     activeUserID: "",
 

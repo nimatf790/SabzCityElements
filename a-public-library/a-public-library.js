@@ -12,7 +12,7 @@ limitations under the License.
 */
 
 //Some typical function
-var publicLibrary = {
+export const publicLibrary = {
 	//manage UserLocalDistinctions in localstorage
 	userLocalDistinctions: {
 		updateAll: function (userID, value) {

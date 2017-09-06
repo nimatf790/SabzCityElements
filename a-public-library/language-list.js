@@ -12,7 +12,7 @@ limitations under the License.
 */
 
 // All world wide language ISO codes & names
-var languagesList = {
+export const languagesList = {
 	aa: {
 		name: 'Afar',
 		nativeName: 'Afaraf'
