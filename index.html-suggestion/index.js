@@ -12,9 +12,14 @@ limitations under the License.
 */
 
 import '/components/SabzCityElements/m-powered-by/m-powered-by.js'
-import '/components/webcomponentsjs/webcomponents-loader.js'
 import "/components/polymer/polymer.js"
 import "/components/platinum-sw/platinum-sw-register.js"
 import "/components/platinum-sw/platinum-sw-cache.js"
 import '/components/SabzCityElements/m-outdated-browser/m-outdated-browser.js'
-import '/components/SabzCityElements/a-app-engine/a-app-engine.js'
+import '/components/SabzCityElements/a-app/a-app-engine.js'
+
+// Set Base Tag by currect Domain
+document.write("<base href='//" + document.location.host + "' />")
+
+// Set manifest Tag by export const appManifest
+document.write("<link rel=manifest href='data:application/manifest+json,{" + appManifest + "}>")

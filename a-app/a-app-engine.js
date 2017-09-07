@@ -13,14 +13,11 @@ limitations under the License.
 
 import "../../paper-toast/paper-toast.js"
 
-import {publicLibrary} from '../a-public-library/a-public-library.js'
-import {appDistinctions} from '../a-app-engine/app-distinctions.js'
-import {SabzCitySDK} from "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-sdk.js"
+import { publicLibrary } from '../a-public-library/a-public-library.js'
+import { appDistinctions } from './a-app-distinctions.js'
+import { SabzCitySDK } from "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-sdk.js"
 
-(function ready() {
-	// Set Base Tag by currect Domain
-	document.write("<base href='//" + document.location.host + "' />");
-
+(function appEngine() {
 	//just for test
 	if (publicLibrary.cookieManager.get("AU") == false) {
 		publicLibrary.cookieManager.set("AU", "Guest", 10)
@@ -37,9 +34,9 @@ import {SabzCitySDK} from "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-sdk
 	} else {
 		suggestLanguage()
 	}
+
 	//Set App Element
 	appendApp()
-	appendManifest()
 
 	if (!appDistinctions.Language) {
 		setTimeout(function () {
@@ -163,12 +160,4 @@ function loadTheme(themeName) {
 		"href": publicLibrary.app.location + "themes/" + themeName + ".html"
 	})
 	document.head.appendChild(themeLink)
-}
-
-function appendManifest() {
-	// Get manifest data and set it
-	manifest = document.createElement('link')
-	manifest.href = "/components/" + publicLibrary.app.name + "/manifest.json"
-	manifest.rel = 'manifest'
-	document.head.appendChild(manifest)
 }
