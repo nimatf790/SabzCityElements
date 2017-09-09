@@ -11,6 +11,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import { Element as PolymerElement } from '../@polymer/polymer/polymer-element.js'
+
 `<custom-style>
   <style is="custom-style">
     html {
