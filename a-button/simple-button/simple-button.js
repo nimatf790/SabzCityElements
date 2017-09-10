@@ -11,15 +11,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import '../polymer/polymer.js';
+import {Element as PolymerElement} from '../node_modules/@polymer/polymer/polymer-element.js'
 import '../iron-flex-layout/iron-flex-layout.js';
 import { PaperButtonBehavior, PaperButtonBehaviorImpl } from '../paper-behaviors/paper-button-behavior.js';
 import '../paper-styles/element-styles/paper-material-styles.js';
-import { Polymer } from '../polymer/lib/legacy/polymer-fn.js';
 
 import materialDesignTemplate from './material-design.html'
 
-export class AButton extends Polymer.Element {
+export class AButton extends PolymerElement {
   static get is() { return 'a-button' }
   static get template() { return materialDesignTemplate }
   static get behaviors() { return PaperButtonBehavior }

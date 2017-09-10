@@ -11,7 +11,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import "../../polymer/polymer.html"
+import {Element as PolymerElement} from '../node_modules/@polymer/polymer/polymer-element.js'
+
 import "../../iron-icons/iron-icons.html"
 import "../../iron-scroll-spy/iron-scroll-spy.html"
 import "../../paper-icon-button/paper-icon-button.html"
@@ -20,7 +21,7 @@ import "../a-public-library/a-public-library.html"
 
 import materialDesignTemplate from './material-design.html'
 
-export class AModal extends Polymer.Element {
+export class AModal extends PolymerElement {
 	static get is() { return 'a-modal' }
 	static get template() { return materialDesignTemplate }
 	ready() {

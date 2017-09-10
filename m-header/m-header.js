@@ -11,7 +11,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import "../../polymer/polymer.html"
+import {Element as PolymerElement} from '../node_modules/@polymer/polymer/polymer-element.js'
+
 import "../../app-layout/app-header/app-header.html"
 import "../../app-layout/app-toolbar/app-toolbar.html"
 import "../../app-layout/app-drawer/app-drawer.html"
@@ -25,7 +26,7 @@ import "../a-modal/a-modal.html"
 
 import materialDesignTemplate from './material-design.html'
 
-export class MHeader extends Polymer.Element {
+export class MHeader extends PolymerElement {
 	static get is() { return 'm-header' }
 	static get template() { return materialDesignTemplate }
 	static get properties() {

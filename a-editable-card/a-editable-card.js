@@ -11,15 +11,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import {Element as PolymerElement} from '../node_modules/@polymer/polymer/polymer-element.js'
 
-import "../../polymer/polymer.html"
 import "../../paper-button/paper-button.html"
 import "../../mat-elements/mat-icon-button.html"
 import "../../mat-elements/mat-icons/editor.html"
 
 import materialDesignTemplate from './material-design.html'
 
-export class AEditableCard extends Polymer.Element {
+export class AEditableCard extends PolymerElement {
 	static get is() { return 'a-editable-card' }
 	static get template() { return materialDesignTemplate }
 	static get properties() {

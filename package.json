@@ -1,5 +1,5 @@
 {
-  "name": "sabzcityelements",
+  "name": "@sabzcity/sabzcityelements",
   "version": "0.1",
   "description": "Common Custom Elements use in SabzCity Platforms",
   "license": "SEE LICENSE IN https://github.com/SabzCity/SabzCityElements/LICENSE",
@@ -13,8 +13,9 @@
   },
   "author": "SabzCity co.",
   "dependencies": {
-    "webcomponentsjs": "webcomponents/webcomponentsjs",
-    "polymer": "polymer/polymer",
+    "@webcomponents/webcomponentsjs": "",
+    "@polymer/polymer": "^3.0.0-pre.1",
+    
     "iron-ajax": "PolymerElements/iron-ajax",
     "platinum-sw": "PolymerElements/platinum-sw",
     "app-layout": "PolymerElements/app-layout",

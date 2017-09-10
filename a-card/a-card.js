@@ -11,11 +11,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import "../../polymer/polymer.html"
+import {Element as PolymerElement} from '../node_modules/@polymer/polymer/polymer-element.js'
 
 import materialDesignTemplate from './material-design.html'
 
-export class ACard extends Polymer.Element {
+export class ACard extends PolymerElement {
 	static get is() { return 'a-card' }
 	static get template() { return materialDesignTemplate }
 	ready() { }

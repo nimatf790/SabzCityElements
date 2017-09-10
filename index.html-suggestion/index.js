@@ -12,6 +12,7 @@ limitations under the License.
 */
 
 import '/components/SabzCityElements/m-powered-by/m-powered-by.js'
+import '/node_modules/@polymer/polymer/polymer.js'
 import "/components/polymer/polymer.js"
 import "/components/platinum-sw/platinum-sw-register.js"
 import "/components/platinum-sw/platinum-sw-cache.js"

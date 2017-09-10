@@ -11,7 +11,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import "../../polymer/polymer.html"
+import {Element as PolymerElement} from '../node_modules/@polymer/polymer/polymer-element.js'
+
 import "../../iron-icon/iron-icon.html"
 import "../../paper-listbox/paper-listbox.html"
 import "../../paper-item/paper-item.html"
@@ -21,7 +22,7 @@ import "../a-iconset/a-iconset.html"
 
 import materialDesignTemplate from './material-design.html'
 
-export class MServicesMenu extends Polymer.Element {
+export class MServicesMenu extends PolymerElement {
 	static get is() { return 'm-menu-services' }
 	static get template() { return materialDesignTemplate }
 	static get properties() {

@@ -11,7 +11,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import "../../polymer/polymer.html"
+import {Element as PolymerElement} from '../node_modules/@polymer/polymer/polymer-element.js'
+
 import "../../paper-button/paper-button.html"
 import "../../iron-icon/iron-icon.html"
 import "../../iron-icons/iron-icons.html"
@@ -21,7 +22,7 @@ import "../../paper-button/paper-button.html"
 import "../a-iconset/a-iconset.html"
 import * as materialDesignTemplate from './material-design.html'
 
-export class MExpansionPanel extends Polymer.Element {
+export class MExpansionPanel extends PolymerElement {
     static get is() { return 'm-expansion-panel' }
     static get template() { return materialDesignTemplate }
     static get properties() {
