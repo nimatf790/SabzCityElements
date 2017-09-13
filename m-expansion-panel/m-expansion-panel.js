@@ -20,7 +20,8 @@ import "../../paper-icon-button/paper-icon-button.html"
 import "../../paper-button/paper-button.html"
 
 import "../a-iconset/a-iconset.html"
-import * as materialDesignTemplate from './material-design.html'
+
+import materialDesignTemplate from './material-design.html'
 
 export class MExpansionPanel extends PolymerElement {
     static get is() { return 'm-expansion-panel' }
