@@ -181,7 +181,7 @@ export const languagesList = {
 		name: 'Basque',
 		nativeName: 'euskara'
 	},
-	per: {
+	fa: {
 		name: 'Persian',
 		nativeName: 'فارسی'
 	},

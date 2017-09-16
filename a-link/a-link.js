@@ -15,45 +15,43 @@ limitations under the License.
 https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement
 
 Extend the <a> tag with history.pushState()
-<a-sabzcity-link>
+<a-link>
   <a href="/path" [title="New Page Title"] [state="{'message':'New State!'}"]>title</a>
-</a-sabzcity-link>
+</a-link>
 */
 
-import "../a-public-library/a-public-library.js"
-
-export class ASabzCityLink extends HTMLAnchorElement {
-  static get is() { return 'a-sabzcity-link' }
+export class ALink extends HTMLAnchorElement {
+  static get is() { return 'a-link' }
   attachedCallback() {
-    this.addEventListener('click', this.pushStateAnchorEventListener, false);
-    this.addEventListener('mouseover', this.sabzcityLinkHoverListener, false);
+    this.addEventListener('click', this.pushStateListener, false)
+    this.addEventListener('mouseover', this.linkHoverListener, false)
   }
   detachedCallback() {
-    this.removeEventListener('click', this.pushStateAnchorEventListener, false);
-    this.removeEventListener('mouseover', this.sabzcityLinkHoverListener, false);
+    this.removeEventListener('click', this.pushStateListener, false)
+    this.removeEventListener('mouseover', this.linkHoverListener, false)
   }
-  sabzcityLinkHoverListener(event) {
+  linkHoverListener(event) {
     if (!this.getAttribute('href').includes(window.location.origin)) {
-      var href = activeUser.distinctions.Language + this.getAttribute('href')
+      var href = document.documentElement.lang + this.getAttribute('href')
       var goUrl = new URL(href, window.location.origin);
       this.setAttribute('href', goUrl)
     }
   }
-  pushStateAnchorEventListener(event) {
+  pushStateListener(event) {
     // open in new tab
     if (event.ctrlKey || event.metaKey || event.which === 2) {
-      return;
+      return
     }
     //get lang from localstorage to set for url
     var href = this.getAttribute('href');
 
     if (!href) {
-      return;
+      return
     }
 
     // don't pushState if the URL is for a different host
     if (href.indexOf('http') === 0 && window.location.host !== new URL(href).host) {
-      return;
+      return
     }
 
     // push state into the history stack
@@ -92,4 +90,4 @@ export class ASabzCityLink extends HTMLAnchorElement {
   }
 }
 
-customElements.define(ASabzCityLink.is, ASabzCityLink)
+customElements.define(ALink.is, ALink)

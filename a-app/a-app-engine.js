@@ -14,6 +14,7 @@ limitations under the License.
 import "../../paper-toast/paper-toast.js"
 
 import { publicLibrary } from '../a-public-library/a-public-library.js'
+import { languagesList } from '../a-public-library/languages-list.js'
 import { appDistinctions } from './a-app-distinctions.js'
 import { SabzCitySDK } from "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-sdk.js"
 
@@ -40,10 +41,7 @@ import { SabzCitySDK } from "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-s
 
 	if (!appDistinctions.Language) {
 		setTimeout(function () {
-			//Set Language in url
-			pushLanguage(appDistinctions.Language)
-			//Load related app theme
-			loadTheme(appDistinctions.Template)
+			setLanguage(appDistinctions.Language)
 		}, 500)
 	}
 })()
@@ -84,80 +82,52 @@ function appendApp() {
 	document.body.appendChild(appElement)
 }
 
-//Push Language in Url if it isn't exist by user distinction
-function pushLanguage(languageName) {
+//Set Language in URL, html tag, ...
+function setLanguage(languageName) {
 	var langs = Object.keys(languagesList) //supported languages
 	var fullpath = window.location.href.replace(window.location.origin, "")
 	var parts = fullpath.split('/')
 
-	//if valid language not find in url
+	// Set in <html lang="">
+	document.documentElement.lang = languageName
+
+	//set language in url if valid language not find.
 	if (parts[1].length == 0 || langs.indexOf(parts[1]) == -1) {
-		var urlWithLang = languageName
+		var urlWithLang = languageName + "/"
 		if (parts[1].length != 0) {
 			urlWithLang = languageName + fullpath
 		}
-		if (checkForAddingSlash()) {
-			urlWithLang = urlWithLang + "/"
-		}
 		var newUrl = new URL(urlWithLang, window.location.origin)
 		history.pushState(window.history.state, "language", newUrl)
-		//if valid language find in url
-	} else {
-		if (checkForAddingSlash()) {
-			var newUrl = new URL(fullpath + "/", window.location.origin)
-			history.pushState(window.history.state, "language", newUrl)
-		}
 	}
 }
 
-//check url for adding slash
-function checkForAddingSlash() {
-	if (fullpath.slice(-1) == "/" && parts[1].length != 0)
-		return false;
-	else if (parts[parts.length - 1].includes("?") || parts[parts.length - 1].includes("."))
-		return false;
-	else
-		return true;
-}
-
 //Guess language for Guest User and notice it!
-function suggestLanguage(req, res) {
+function suggestLanguage() {
 	//Send request to server and get suggested language by user IP
 	var apiResponse = sabzcitySDK("v1", "!!!", "!!!")
 	//Check SabzCity APIs response deliver
 	if (apiResponse) {
 		//Set suggested language for Guest user distinction
-		activeUser.distinctions.Language = apiResponse
+		appDistinctions.Language = apiResponse
 	} else {
 		setTimeout(function () {
 			//Wait 500ms and if anwser received in 300ms, set it
 			if (apiResponse) {
 				//Set suggested language for Guest user distinction
-				activeUser.distinctions.Language = apiResponse
+				appDistinctions.Language = apiResponse
 				//Otherwise set browser default language!
 			} else {
 				//Set suggested language for Guest user distinction
-				activeUser.distinctions.Language = navigator.language.substr(0, 2)
+				appDistinctions.Language = navigator.language.substr(0, 2)
 			}
 		}, 500)
 	}
 
 	//Willy nilly Toast the suggestion and the way user can change language in English
-	var notification_element = publicLibrary.makeElement("paper-toast", {
+	var notificationElement = publicLibrary.makeElement("paper-toast", {
 		"text": "We detect this language for you. You can change it anytime from hamberger menu!" + activeUser.distinctions.Language,
 		"opened": true
 	})
-	Polymer.dom(this.root).appendChild(notification_element)
-}
-
-//Append app theme.
-function loadTheme(themeName) {
-	if (themeName == null) {
-		themeName = "default"
-	}
-	var themeLink = publicLibrary.makeElement("link", {
-		"rel": "import",
-		"href": publicLibrary.app.location + "themes/" + themeName + ".html"
-	})
-	document.head.appendChild(themeLink)
+	Polymer.dom(this.root).appendChild(notificationElement)
 }
