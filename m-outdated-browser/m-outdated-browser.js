@@ -11,6 +11,5 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-
-// Check browser version and suggest user to update browser
+// Check browser name and version and suggest user to download or update browser.
 // https://github.com/burocratik/outdated-browser

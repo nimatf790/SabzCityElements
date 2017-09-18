@@ -30,12 +30,6 @@ export const appDistinctions = {
     fontSize: 0,            // 0 to 10
     backgroundColor: "",    //
     backgroundImage: "",    //
-
-    // SabzCityElements use Domain name as App Name with some changes
-    appName: "app-" + window.location.hostname.replace(/\./g, '-'),
-    appLocation: "/" + window.location.hostname.replace(/\./g, '') + ".bundle.js"
-    // appName: "app-my-sabz-city",
-    // appLocation: "/mysabzcity.bundle.js"
 };
 
 //Use this object for active app data like language data

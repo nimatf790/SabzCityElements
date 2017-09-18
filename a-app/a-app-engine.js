@@ -11,12 +11,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import "../../paper-toast/paper-toast.js"
-
-import { publicLibrary } from '../a-public-library/a-public-library.js'
-import { languagesList } from '../a-public-library/languages-list.js'
+import { publicLibrary } from '../public-library/public-library.js'
+import { languagesList } from '../public-library/languages-list.js'
 import { appDistinctions } from './a-app-distinctions.js'
-import { SabzCitySDK } from "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-sdk.js"
+import { SabzCitySDK } from "../../webcomponents/sabzcity-sdk/sabzcity-sdk.js"
 
 (function appEngine() {
 	//just for test
@@ -36,9 +34,6 @@ import { SabzCitySDK } from "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-s
 		suggestLanguage()
 	}
 
-	//Set App Element
-	appendApp()
-
 	if (!appDistinctions.Language) {
 		setTimeout(function () {
 			setLanguage(appDistinctions.Language)
@@ -49,7 +44,7 @@ import { SabzCitySDK } from "../../SabzCityWebComponents/sabzcity-sdk/sabzcity-s
 //Update active user distinctions
 function updateUserDistinction() {
 	//Get User Distinction with sabzcitySDK
-	var apiResponse = sabzcitySDK("v1", "usersinfo", "GetFrontEndDistinctions", appDistinctions.activeUserID)
+	var apiResponse = ""
 	//Check SabzCity APIs response deliver
 	if (apiResponse) {
 		publicLibrary.userLocalDistinctions.updateAll(appDistinctions.activeUserID, apiResponse)
@@ -63,23 +58,12 @@ function updateUserDistinction() {
 				//if download failed load previous distinction
 			} else if (publicLibrary.userLocalDistinctions.getAll(appDistinctions.activeUserID)) {
 				appDistinctions.distinctions = publicLibrary.userLocalDistinctions.getAll(appDistinctions.activeUserID)
-				//if theres no previous distinction in localstorage, do as guest user
+				//if there is no previous distinction in localstorage, do as guest user
 			} else {
 				this.suggestLanguage()
 			}
 		}, 500)
 	}
-}
-
-//Append app elements by suggestion architecture.
-function appendApp() {
-	var appLink = publicLibrary.makeElement("link", {
-		"rel": "import",
-		"href": publicLibrary.app.location + publicLibrary.app.name + ".html"
-	})
-	document.head.appendChild(appLink)
-	var appElement = publicLibrary.makeElement(publicLibrary.app.name)
-	document.body.appendChild(appElement)
 }
 
 //Set Language in URL, html tag, ...
@@ -105,7 +89,7 @@ function setLanguage(languageName) {
 //Guess language for Guest User and notice it!
 function suggestLanguage() {
 	//Send request to server and get suggested language by user IP
-	var apiResponse = sabzcitySDK("v1", "!!!", "!!!")
+	var apiResponse = ""
 	//Check SabzCity APIs response deliver
 	if (apiResponse) {
 		//Set suggested language for Guest user distinction
@@ -124,10 +108,5 @@ function suggestLanguage() {
 		}, 500)
 	}
 
-	//Willy nilly Toast the suggestion and the way user can change language in English
-	var notificationElement = publicLibrary.makeElement("paper-toast", {
-		"text": "We detect this language for you. You can change it anytime from hamberger menu!" + activeUser.distinctions.Language,
-		"opened": true
-	})
-	Polymer.dom(this.root).appendChild(notificationElement)
+	//Willy nilly Toast the suggestion and the way user can change language
 }
