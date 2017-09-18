@@ -11,7 +11,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import {Element as PolymerElement} from '../node_modules/@polymer/polymer/polymer-element.js'
+import {Element as PolymerElement} from '../../../../@polymer/polymer/polymer-element.js'
 import '../iron-flex-layout/iron-flex-layout.js';
 import { PaperButtonBehavior, PaperButtonBehaviorImpl } from '../paper-behaviors/paper-button-behavior.js';
 import '../paper-styles/element-styles/paper-material-styles.js';
