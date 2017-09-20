@@ -1,4 +1,4 @@
-<!--
+/*
 Copyright 2017 SabzCity
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -9,9 +9,11 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
--->
+*/
 
-Location-based & Attribute-based
-
-read url and make related menu by rules
-it is enabled and disable by logo icon in header element.
+/*
+https://www.w3.org/International/questions/qa-lang-why
+https://www.w3.org/International/questions/qa-html-language-declarations
+https://formatjs.io
+https://www.i18next.com/
+*/

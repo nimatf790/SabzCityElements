@@ -13,13 +13,85 @@ limitations under the License.
 
 <style>
     .oldBrowser {
-        text-align: center
+        position: fixed;
+        top: 50%;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        max-width: 100%;
+        max-height: 100%;
+        height: 200px;
+        text-align: center;
+        margin-top: -100px;
+        font-weight: 300;
+        font-family: 'Roboto', Arial, sans-serif;
+    }
+
+    .oldBrowser a {
+        text-decoration: none;
+    }
+
+    .oldBrowser p {
+        font-size: 1.15rem;
+        letter-spacing: -0.3px;
+        line-height: 20px;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: #92989b;
+    }
+
+    .chip {
+        display: inline-block;
+        height: 64px;
+        font-size: 20px;
+        text-transform: uppercase;
+        font-weight: 500;
+        color: #616161;
+        line-height: 64px;
+        padding-right: 24px;
+        border-radius: 32pt;
+        background-color: #e4e4e4;
+        margin-bottom: 5px;
+        margin-right: 15px;
+        letter-spacing: -0.5px;
+        padding: 0 32px 0 12px;
+        -webkit-box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
+        -webkit-transition: all 0.1s ease-out;
+        -moz-transition: all 0.1s ease-out;
+        -o-transition: all 0.1s ease-out;
+        transition: all 0.1s ease-out;
+    }
+
+    .chip:hover {
+        color: #4CAF50;
+        -webkit-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    }
+
+    .chip>img {
+        float: left;
+        margin: 0 12px 0 -12px;
+        height: 64px;
+        width: auto;
+        border-radius: 50%;
     }
 </style>
 
 <div class="oldBrowser">
-    Please download or update your browser to one of the last version of these browsers, to be able to use this platform<br>
-    <a href="https://www.google.com/chrome/browser/"><img src='https://www.google.com/chrome/assets/common/images/chrome_logo_2x.png' /></a>
-    <a href="https://www.mozilla.org/en-US/firefox/new/"><img src='https://www.mozilla.org/media/img/firefox/template/header-logo-inverse.510f97e92635.png' /></a>
-    <a href="http://www.apple.com/safari/"><img src='http://images.apple.com/v/safari/g/images/overview/safari_icon_large.png' /></a>
+    <p>Please download or update your browser to one of the last version of these browsers, to be able to use this platform.</p><br>
+
+    <div class="chips">
+        <a href="https://www.google.com/chrome/browser/">
+            <div class="chip"><img src="chrome.png" alt="Chrome browser download link">Chrome</div>
+        </a>
+
+        <a href="https://www.mozilla.org/en-US/firefox/new/">
+            <div class="chip"><img src="firefox.png" alt="Mozilla browser download link">Firefox</div>
+        </a>
+
+        <a href="http://www.apple.com/safari/">
+            <div class="chip"><img src="safari.png" alt="Safari browser download link">Safari</div>
+        </a>
+    </div>
 </div>

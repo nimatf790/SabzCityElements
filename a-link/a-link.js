@@ -90,4 +90,4 @@ export class ALink extends HTMLAnchorElement {
   }
 }
 
-customElements.define(ALink.is, ALink)
+customElements.define(ALink.is, ALink, {extends: 'a'})
