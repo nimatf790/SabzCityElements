@@ -11,18 +11,5 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { Element as PolymerElement } from '../../../@polymer/polymer/polymer-element.js'
-
-import materialDesignTemplate from './material-design.html'
-import flatDesignTemplate from './flat-design.html'
-
-export class ACard extends PolymerElement {
-	static get is() { return 'a-card' }
-	static get template() {
-		if (appDistinctions.template = "Flat") { return flatDesignTemplate }
-		else { return materialDesignTemplate }
-	}
-	ready() { }
-}
-
-customElements.define(ACard.is, ACard)
+import {Element as PolymerElement} from '../../../@polymer/polymer/polymer-element.js'
+import '../../m-dialog/m-dialog.js'

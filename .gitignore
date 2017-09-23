@@ -1,0 +1,6 @@
+# external packages folder ignore in push
+*node_modules*
+*bower_components*
+
+# internal packages folder include in push
+#node_modules/SabzCityElements/

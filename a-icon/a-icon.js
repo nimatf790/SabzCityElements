@@ -13,16 +13,12 @@ limitations under the License.
 
 import { Element as PolymerElement } from '../../../@polymer/polymer/polymer-element.js'
 
-import materialDesignTemplate from './material-design.html'
-import flatDesignTemplate from './flat-design.html'
+import "../../iron-iconset-svg/iron-iconset-svg.html"
 
-export class ACard extends PolymerElement {
-	static get is() { return 'a-card' }
+export class AIcon extends PolymerElement {
+	static get is() { return 'a-icon' }
 	static get template() {
-		if (appDistinctions.template = "Flat") { return flatDesignTemplate }
-		else { return materialDesignTemplate }
 	}
-	ready() { }
 }
 
-customElements.define(ACard.is, ACard)
+customElements.define(AIcon.is, AIcon)

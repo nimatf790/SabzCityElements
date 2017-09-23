@@ -18,7 +18,7 @@ export const appDistinctions = {
 
     //global sync distinctions
     HTML5Version: "",
-    Template: "default",
+    Template: "Flat",
     UnitOfMeasurement: "",
     Language: "",
     PrivacyTerms: "",
@@ -30,11 +30,4 @@ export const appDistinctions = {
     fontSize: 0,            // 0 to 10
     backgroundColor: "",    //
     backgroundImage: "",    //
-};
-
-//Use this object for active app data like language data
-var activeApp = {
-    appText: {
-        aboutme_title: "اطلاعات من"
-    }
-};
+}
