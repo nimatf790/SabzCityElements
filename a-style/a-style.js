@@ -12,3 +12,19 @@ limitations under the License.
 */
 
 import { Element as PolymerElement } from '../../../@polymer/polymer/polymer-element.js'
+import appDistinctions from '../a-app/a-app-distinctions.js'
+
+import defaultTemplate from './default-theme.html'
+import materialDesignColor from './material-design/color.html'
+import materialDesignShadow from './material-design/shadow.html'
+import materialDesignTypography from './material-design/typography.html'
+
+if (appDistinctions.template = "Material") {
+    document.head.appendChild(materialDesignColor)
+    document.head.appendChild(materialDesignShadow)
+    document.head.appendChild(materialDesignTypography)
+} else if (appDistinctions.template = "Flat") {
+    document.head.appendChild()
+}
+
+document.head.appendChild(defaultTemplate)

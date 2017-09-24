@@ -12,4 +12,5 @@ limitations under the License.
 */
 
 import {Element as PolymerElement} from '../../../@polymer/polymer/polymer-element.js'
+import languagesList from './languages-list.js'
 import '../../m-dialog/m-dialog.js'
