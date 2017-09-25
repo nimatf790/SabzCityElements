@@ -11,4 +11,38 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import {Element as PolymerElement} from '../../../@polymer/polymer/polymer-element.js'
+import {Element as PolymerElement} from '../../../@polymer/polymer/polymer-element.js';
+import "../../iron-icon/iron-icon.html"
+import materialDesignTemplate from './material-design.html'
+
+export class Mchip extends PolymerElement {
+    
+  static get template() {
+    return materialDesignTemplate
+  }
+
+  constructor() {
+    super();
+  }
+
+  static get properties() {
+    return {
+        isActive: Boolean
+    }
+  }
+}
+    
+customElements.define('m-chip', Mchip);
+
+
+
+/*
+
+//////   Element demo    //////
+
+<m-chip> 
+  <img slot="image" src="">
+  <span slot="text"></span>
+</m-chip>
+
+*/
