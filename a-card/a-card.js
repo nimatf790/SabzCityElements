@@ -12,13 +12,39 @@ limitations under the License.
 */
 
 import {Element as PolymerElement} from '../../../@polymer/polymer/polymer-element.js'
-
 import materialDesignTemplate from './material-design.html'
 
 export class ACard extends PolymerElement {
-	static get is() { return 'a-card' }
-	static get template() { return materialDesignTemplate }
-	ready() { }
+	
+	static get template() {
+		return materialDesignTemplate
+	}
+	
+	constructor() {
+		super();
+	}
+	
+	static get properties() {
+		return {
+			dir: {
+				type: String
+			}
+		}
+	}
 }
+	
+customElements.define('a-card', ACard);
 
-customElements.define(ACard.is, ACard)
+
+/*
+
+//////   Element demo    //////
+
+<a-card dir="horizontal">
+	<img slot="image" src="">
+	<span slot="title"></span>
+	<p slot="text"></p>
+	<a slot="action-link" href=""></a>
+</a-card>
+
+*/
