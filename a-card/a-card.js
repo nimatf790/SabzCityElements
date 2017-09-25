@@ -13,6 +13,7 @@ limitations under the License.
 
 import { Element as PolymerElement } from '../../../@polymer/polymer/polymer-element.js'
 import appDistinctions from '../a-app/a-app-distinctions.js'
+import '../a-style/a-style.js'
 
 import materialDesignTemplate from './material-design.html'
 import flatDesignTemplate from './flat-design.html'

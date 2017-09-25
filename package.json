@@ -1,6 +1,6 @@
 {
   "name": "@sabzcity/elements",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "Common Custom Elements use in SabzCity Platforms",
   "license": "SEE LICENSE IN https://github.com/SabzCity/SabzCityElements/LICENSE",
   "homepage": "https://github.com/SabzCity/SabzCityElements",
@@ -15,7 +15,7 @@
   "dependencies": {
     "@webcomponents/webcomponentsjs": "",
     "@polymer/polymer": "^3.0.0-pre.1",
-    "@sabzcity/webcomponents": ""
+    "@sabzcity/webcomponents": "git+https://github.com/SabzCity/SabzCityWebComponents.git"
   },
   "flat": true,
   "private": true
