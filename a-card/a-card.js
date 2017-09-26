@@ -11,18 +11,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import {Element as PolymerElement} from '../../../@polymer/polymer/polymer-element.js'
+import { Element as PolymerElement } from '../../../@polymer/polymer/polymer-element.js'
+import appDistinctions from '../a-app/a-app-distinctions.js'
+import '../a-style/a-style.js'
+
 import materialDesignTemplate from './material-design.html'
+import flatDesignTemplate from './flat-design.html'
 
 export class ACard extends PolymerElement {
 	
-	static get template() {
-		return materialDesignTemplate
-	}
-	
-	constructor() {
-		super();
-	}
 	
 	static get properties() {
 		return {
@@ -30,6 +27,16 @@ export class ACard extends PolymerElement {
 				type: String
 			}
 		}
+	}
+	static get is() { return 'a-card' }
+	static get template() {
+		if (appDistinctions.template = "Flat") { return flatDesignTemplate }
+		else { return materialDesignTemplate }
+	}
+	ready() { }
+
+	constructor() {
+		super();
 	}
 }
 	

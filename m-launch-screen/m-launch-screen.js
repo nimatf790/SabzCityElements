@@ -11,23 +11,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-//Use this object for active app data. this object is sync with localStorage and cookie.
-export const appDistinctions = {
-    // active user details
-    activeUserID: "",
+import { Element as PolymerElement } from '../../../@polymer/polymer/polymer-element.js'
 
-    //global sync distinctions
-    HTML5Version: "",
-    Template: "Material",
-    UnitOfMeasurement: "",
-    Language: "",
-    PrivacyTerms: "",
-    DataUsage: 0,
-    Time: 0,
+import materialDesignTemplate from './material-design.html'
 
-    // Local app distinction
-    fontName: "",           // supported font
-    fontSize: 0,            // 0 to 10
-    backgroundColor: "",    //
-    backgroundImage: "",    //
+export class MLaunchScreen extends PolymerElement {
+    static get is() {
+        return 'm-launch-screen';
+    }
+    static get template() {
+        return materialDesignTemplate
+    }
+    ready() {
+        document.getElementById('initial-loading-box').style.display = 'none'
+    }
 }
+
+customElements.define(MLaunchScreen.is, MLaunchScreen);

@@ -11,23 +11,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-//Use this object for active app data. this object is sync with localStorage and cookie.
-export const appDistinctions = {
-    // active user details
-    activeUserID: "",
-
-    //global sync distinctions
-    HTML5Version: "",
-    Template: "Material",
-    UnitOfMeasurement: "",
-    Language: "",
-    PrivacyTerms: "",
-    DataUsage: 0,
-    Time: 0,
-
-    // Local app distinction
-    fontName: "",           // supported font
-    fontSize: 0,            // 0 to 10
-    backgroundColor: "",    //
-    backgroundImage: "",    //
-}
+import {Element as PolymerElement} from '../../../@polymer/polymer/polymer-element.js'
+import languagesList from './languages-list.js'
+import '../../m-dialog/m-dialog.js'
